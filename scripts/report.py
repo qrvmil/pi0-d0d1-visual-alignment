@@ -66,8 +66,10 @@ def main():
         f'λ={json.loads((ROOT/"configs/lambda_decision.json").read_text())["selected"]}. Projector200 updates, pilot20, K=4. '
         f'Демонстрации:50 D0+50 D1; {json.loads((ROOT/"configs/normalization_provenance.json").read_text())["frames"]} кадров. '
         'Нормализация all-seen, chunk-weighted, next-action shift; отличается от исторического pipeline обработкой последнего неполного batch, это зафиксированная адаптация.',
-        '', '| Run | Wall time, h | Peak JAX allocations, GiB |', '|---|---:|---:|'])
-    for arm,v in metrics.items():lines.append(f'|{arm}|{v["seconds"]/3600:.2f}|{v["memory_stats"]["peak_bytes_in_use"]/2**30:.2f}|')
+        '', '| Run | Wall time (process), h | Peak VRAM (NVML), GiB | Peak JAX allocations, GiB |', '|---|---:|---:|---:|'])
+    for arm,v in metrics.items():
+        memory=json.loads((ROOT/'logs'/f'{arm}_vram.json').read_text())
+        lines.append(f'|{arm}|{memory["wall_seconds"]/3600:.2f}|{memory["peak_process_vram_bytes"]/2**30:.2f}|{v["memory_stats"]["peak_bytes_in_use"]/2**30:.2f}|')
     lines.extend(['', 'GPU: фактически A100-SXM4-80GB. Blackwell smoke не проверен на этой машине. Driver580.159.03; JAX0.5.3, CUDA runtime12.8. '
         'Цена аренды недоступна: стоимость=walltimeGPU×фактическая ставка$/h; не выдаём придуманную сумму.',
         '', '![Losses](figures/losses.png)', '![Success rates](figures/success_rates.png)', '',

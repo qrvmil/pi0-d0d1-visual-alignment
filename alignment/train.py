@@ -216,4 +216,9 @@ def main():
             lam=json.loads((ROOT/'configs/lambda_decision.json').read_text())['selected']
             train_arm(state,batches,projector,cfg,args.mode,size,lam)
 
-if __name__=='__main__':main()
+if __name__=='__main__':
+    from .memory import VramMonitor
+    import sys
+    monitor=VramMonitor()
+    try:main()
+    finally:monitor.finish(ROOT/'logs'/f'{sys.argv[1]}_vram.json')
