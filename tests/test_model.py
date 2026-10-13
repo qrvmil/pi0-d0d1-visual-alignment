@@ -44,3 +44,10 @@ def test_projector_gradient_is_frozen_but_student_gradient_nonzero():
     gp,gx=jax.grad(loss,argnums=(0,1))(params,x)
     assert all(np.all(np.asarray(v)==0) for v in jax.tree.leaves(gp))
     assert float(jnp.linalg.norm(gx))>0
+
+
+def test_integration_finite_guard_rejects_nan_and_inf():
+    from alignment.integration import require_finite
+    require_finite({'a':jnp.array([1.,2.]),'b':jnp.array(0.)})
+    with pytest.raises(ValueError,match='Nonfinite'):require_finite({'a':jnp.array([jnp.nan])})
+    with pytest.raises(ValueError,match='Nonfinite'):require_finite({'a':jnp.array([jnp.inf])})

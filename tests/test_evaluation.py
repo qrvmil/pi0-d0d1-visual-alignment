@@ -23,3 +23,18 @@ def test_cohort_rejects_duplicates_and_unregistered_seeds():
     with pytest.raises(ValueError):validate_cohort(valid[:-1]+[valid[0]],'D0')
     with pytest.raises(ValueError):validate_cohort([dict(seed=s) for s in range(50)],'D0')
     with pytest.raises(ValueError):validate_cohort([dict(seed=s) for s in seed_plan(True)],'D2')
+
+
+def test_evaluation_binding_rejects_current_weight_or_norm_drift():
+    from alignment.evaluation import require_current_binding
+    require_current_binding({'normalization_sha256':'a','checkpoint_params':{'x':'b'}},
+                            {'normalization_sha256':'a','checkpoint_params':{'x':'b'}})
+    with pytest.raises(ValueError,match='binding'):
+        require_current_binding({'normalization_sha256':'a','checkpoint_params':{'x':'b'}},
+                                {'normalization_sha256':'c','checkpoint_params':{'x':'b'}})
+
+
+def test_one_arm_partial_extension_resumes_both_at500():
+    from alignment.evaluation import needs_extended_cohort
+    assert needs_extended_cohort([[{'seed':10000},{'seed':10050}],[{'seed':10000}]])
+    assert not needs_extended_cohort([[{'seed':10000}],[{'seed':10049}]])

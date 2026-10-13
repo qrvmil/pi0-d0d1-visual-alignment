@@ -12,6 +12,12 @@ from .model import middle_state
 from .training import ROOT,microbatch,gradient_function,accumulated_grad,parameter_digest
 
 
+def require_finite(tree):
+    leaves=jax.tree.leaves(tree)
+    if not leaves or not all(bool(jnp.all(jnp.isfinite(x))) for x in leaves):
+        raise ValueError('Nonfinite integration features, gradients or metrics')
+
+
 def raw_reference(model,obs,actions):
     prefix,pm,pa=model.embed_prefix(obs)
     # Deterministic arbitrary suffix; prefix cannot attend to it.
@@ -20,7 +26,7 @@ def raw_reference(model,obs,actions):
     positions=jnp.cumsum(jnp.concatenate([pm,sm],axis=1),axis=1)-1
     params=nnx.state(model.PaliGemma.llm).to_pure_dict()['layers']
     configs=tuple(model.PaliGemma.llm.module.configs)
-    xs=[prefix,suffix]
+    xs=jax.tree.map(lambda x:x.astype(model.PaliGemma.llm.module.embed_dtype),[prefix,suffix])
     # Test oracle manually applies exactly9 blocks, retaining only the current state.
     for i in range(9):
         perlayer=jax.tree.map(lambda x:x[i],params)
@@ -35,6 +41,7 @@ def validate(state,batches,projector,cfg,size):
     got=extract(state.params,obs);jax.block_until_ready(got)
     oracle=jax.jit(lambda params,obs,actions:raw_reference(nnx.merge(state.model_def,params),obs,actions))
     ref=oracle(state.params,obs,actions);jax.block_until_ready(ref)
+    require_finite((got,ref))
     rel=float(jnp.linalg.norm(got.astype(jnp.float32)-ref.astype(jnp.float32))/jnp.maximum(jnp.linalg.norm(ref.astype(jnp.float32)),1e-8))
     if rel>.005:raise ValueError(f'Real π0 middle-state correspondence failed: {rel}')
     altered=dataclasses.replace(obs,images=dict(obs.images,right_wrist_0_rgb=jax.random.uniform(jax.random.key(99),obs.images['right_wrist_0_rgb'].shape,minval=-1,maxval=1)))
@@ -46,8 +53,10 @@ def validate(state,batches,projector,cfg,size):
     gf,fi=accumulated_grad(state,batch,projector,.2,flow_fn,size)
     ga,ai=accumulated_grad(state,batch,projector,.2,align_fn,size)
     gt,ti=accumulated_grad(state,batch,projector,.2,total_fn,size)
+    require_finite((gf,ga,gt,fi,ai,ti))
     delta=jax.tree.map(lambda t,f,a:t-f-.2*a,gt,gf,ga)
     residual=float(optax.global_norm(delta)/jnp.maximum(optax.global_norm(gt),1e-8))
+    require_finite((rel,residual))
     if residual>.02:raise ValueError(f'Gradient decomposition exceeded bf16 tolerance: {residual}')
     if abs(float(fi['flow'])-float(ti['flow']))>1e-5:raise ValueError('Initial paired flow losses differ')
     groups={};late_max=0.

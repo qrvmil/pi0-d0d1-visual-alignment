@@ -125,13 +125,16 @@ def main():
             if checkpoint_arm==arm:
                 shutil.copytree(ROOT/'private/checkpoints'/arm/step,dest/step,copy_function=os.link)
     shutil.copy2(ROOT/'private/projector.npz',export/'projector.npz')
+    vetted=set(command(['git','ls-files']).splitlines())
     configdest=export/'configs';configdest.mkdir(exist_ok=True)
     for p in (ROOT/'configs').glob('*.json'):
+        if str(p.relative_to(ROOT)) not in vetted:continue
         if 'cache_manifest' in p.name or 'cache_smoke_manifest' in p.name or p.name=='published_hf_inventory.json':continue
         shutil.copy2(p,configdest/p.name)
     shutil.copy2(ROOT/'REPORT_RU.md',export/'REPORT_RU.md')
-    for folder in ('figures','evaluation','logs','docs'):
-        shutil.copytree(ROOT/folder,export/folder)
+    for name in vetted:
+        if Path(name).parts[0] in ('figures','evaluation','logs','docs'):
+            dest=export/name;dest.parent.mkdir(parents=True,exist_ok=True);shutil.copy2(ROOT/name,dest)
     card=f'''---
 language:
 - ru

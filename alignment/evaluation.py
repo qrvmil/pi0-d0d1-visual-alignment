@@ -29,6 +29,14 @@ def validate_cohort(rows,task):
     if [r['seed'] for r in rows]!=expected:raise ValueError('Exact unique preregistered seed cohort required')
 
 
+def require_current_binding(saved,current):
+    if any(saved.get(k)!=v for k,v in current.items()):raise ValueError('Current evaluation binding differs from saved artifacts')
+
+
+def needs_extended_cohort(cohorts):
+    return any(r['seed']>=10050 for rows in cohorts for r in rows)
+
+
 class NoiseLoggedPolicy:
     def __init__(self,policy):self.policy=policy;self.hashes=[]
     def infer(self,obs,**kwargs):
@@ -56,6 +64,12 @@ def run(arm,task,extended=False):
     # Matching architecture for newly created LoRA32 params.
     from .training import config
     config(arm)
+    if task=='D0':
+        cohorts=[]
+        for other_arm in ('B-control','B-align'):
+            existing_path=ROOT/'evaluation'/other_arm/task/'episodes.json'
+            if existing_path.exists():cohorts.append(json.loads(existing_path.read_text()))
+        extended=extended or needs_extended_cohort(cohorts)
     checkpoint=ROOT/'private/checkpoints'/arm/'3001'
     cfg=EvalConfig(str(checkpoint),'external',task=task,seeds=tuple(seed_plan(extended)),videos=0,
                    normalization=str(ROOT/'configs/norm_stats.json'),seen_tasks=('D0','D1'),
@@ -92,9 +106,19 @@ def run(arm,task,extended=False):
 
 def summarize():
     results={}
+    from .data import sha256
+    sys.path.insert(0,'/root/maniskill_myws/src')
+    from maniskill_myws.pld.libero_protocol import directory_manifest
     for task in ('D0','D1','D2'):
         c=json.loads((ROOT/'evaluation/B-control'/task/'episodes.json').read_text())
         a=json.loads((ROOT/'evaluation/B-align'/task/'episodes.json').read_text())
+        for arm in ('B-control','B-align'):
+            binding=json.loads((ROOT/'evaluation'/arm/task/'binding.json').read_text())
+            checkpoint=ROOT/'private/checkpoints'/arm/'3001'
+            current=dict(checkpoint=str(checkpoint.resolve()),checkpoint_params=directory_manifest(checkpoint/'params'),
+                normalization_path=str((ROOT/'configs/norm_stats.json').resolve()),normalization_sha256=sha256(ROOT/'configs/norm_stats.json'),
+                arm=arm,task=task,seen_tasks=['D0','D1'],action_horizon=50,replan_steps=5)
+            require_current_binding(binding,current)
         validate_cohort(c,task);validate_cohort(a,task)
         validate_pairs(c,a)
         if len(c) not in ((50,500) if task=='D0' else (50,)):
