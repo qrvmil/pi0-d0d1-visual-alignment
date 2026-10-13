@@ -46,3 +46,5 @@
 - Continuation re-read complete original request. Live B-align worker86161 advanced beyond394 updates; immutable pipeline28325 and attached host-PID monitor39943 confirmed live. Completion audit updated with complete control checkpoints and independently verified paired initialization; full align/evaluation/publication remain pending.
 
 - B-align checkpoint500 is durable: params/train_state/assets/metadata present, immutable binding and D0+D1 norm match, frozen projector digest unchanged. All observed paired batch/sample/image hashes match B-control and losses/gradient norms are finite; logs/B-align_checkpoint500_audit.json records scope. Worker86161 and pipeline28325 remain live; no evaluation yet.
+
+- Verified wait on live worker86161 and immutable pipeline28325 advanced B-align685→1000. Checkpoint1000 is now durable, immutable binding/norm/projector digest verified; all observed paired batch/sample/image hashes equal control and finite metrics. logs/B-align_checkpoint1000_audit.json records scope. Final3001, fresh-process resume, evaluation and publication remain pending.
