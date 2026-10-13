@@ -1,0 +1,12 @@
+{
+  "status": "verified_for_current_prefix",
+  "identical_independent_initialization_sha256": "43f7c62aedacb8ee93fbbd829c93a878335368b12a4864419e2fc9128cbc7d47",
+  "common_recipe_equal_except_alignment": true,
+  "common_prefix_updates": 284,
+  "sample_and_image_hashes_equal": true,
+  "initial_control_flow": 0.19704002141952515,
+  "initial_align_flow": 0.19704024493694305,
+  "initial_flow_absolute_difference": 2.2351741790771484e-07,
+  "prewritten_flow_tolerance": 1e-05,
+  "lambda_align": 0.2
+}

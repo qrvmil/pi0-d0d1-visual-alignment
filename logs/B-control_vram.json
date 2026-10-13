@@ -1,7 +1,7 @@
 {
   "pid": 71825,
   "sample_interval_seconds": 0.25,
-  "peak_process_vram_bytes": 0,
+  "peak_process_vram_bytes": null,
   "wall_seconds": 3483.7724022865295,
   "total_vram_bytes": 85899345920,
   "errors": [],
@@ -54874,5 +54874,7 @@
       "seconds": 3483.7619507312775,
       "process_vram_bytes": 0
     }
-  ]
+  ],
+  "measurement_valid": false,
+  "measurement_note": "NVML returned host PID; container PID never matched. Zero per-process samples are invalid. Walltime is valid; exact full-run JAX peaks are in B-control_complete.json."
 }

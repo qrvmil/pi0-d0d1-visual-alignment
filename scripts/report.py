@@ -91,13 +91,21 @@ def main():
         f'λ={json.loads((ROOT/"configs/lambda_decision.json").read_text())["selected"]}. Projector: 200 updates; pilot: 20 updates; K=4. '
         f'Демонстрации: 50 D0 + 50 D1; {json.loads((ROOT/"configs/normalization_provenance.json").read_text())["frames"]} кадров. '
         'Нормализация all-seen, chunk-weighted, next-action shift; отличается от исторического pipeline обработкой последнего неполного batch, это зафиксированная адаптация.',
-        '', '| Run | Wall time (process), h | Peak VRAM (NVML, шаг 0.25 с), GiB | Peak JAX allocations, GiB |', '|---|---:|---:|---:|'])
+        '', '| Run | Wall time (process), h | NVML peak, GiB | JAX allocations peak, GiB | JAX pool peak, GiB |', '|---|---:|---:|---:|---:|'])
     for arm,v in metrics.items():
         memory=json.loads((ROOT/'logs'/f'{arm}_vram.json').read_text())
-        lines.append(f'|{arm}|{memory["wall_seconds"]/3600:.2f}|{memory["peak_process_vram_bytes"]/2**30:.2f}|{v["memory_stats"]["peak_bytes_in_use"]/2**30:.2f}|')
+        nvml='недоступен (PID namespace)'
+        attached=ROOT/'logs'/f'{arm}_attached_vram.json'
+        if attached.exists():
+            observed=json.loads(attached.read_text())
+            if observed['peak_process_vram_bytes'] is not None:nvml=f"{observed['peak_process_vram_bytes']/2**30:.2f} (частичное окно)"
+        elif memory['peak_process_vram_bytes']:
+            nvml=f"{memory['peak_process_vram_bytes']/2**30:.2f}"
+        lines.append(f'|{arm}|{memory["wall_seconds"]/3600:.2f}|{nvml}|{v["memory_stats"]["peak_bytes_in_use"]/2**30:.2f}|{v["memory_stats"]["peak_pool_bytes"]/2**30:.2f}|')
     lines.extend(['', 'GPU: фактически A100-SXM4-80GB. Blackwell smoke не проверен на этой машине. Driver 580.159.03; JAX 0.5.3, CUDA runtime 12.8. '+cost_text(),
         '', 'L_align показана для B-align; в B-control этот loss не вычисляется.', '![Losses](figures/losses.png)', '![Success rates](figures/success_rates.png)', '',
-        'Проблемы: CUDA 12.6 обновлена до 12.8; локальный HF dynamic loader и per-tensor loading RADIO несовместимы с выбранным Transformers, использована прямая загрузка полного pinned safetensors state_dict с strict=True. '
+        'Проблемы: NVML host PID отличается от PID контейнера; первоначальная per-process серия возвращала ложные нули и признана недоступной. JAX allocations/pool peaks измерены за весь процесс; B-align NVML probe подключён после первых updates и помечен как частичное окно, не полный peak всего run. '
+        'CUDA 12.6 обновлена до 12.8; локальный HF dynamic loader и per-tensor loading RADIO несовместимы с выбранным Transformers, использована прямая загрузка полного pinned safetensors state_dict с strict=True. '
         'Доверительные границы — консервативные exact CP с marginal Bonferroni. D0: односторонний критерий и двухсторонний CI учитывают 2 заранее заданных просмотра; D1/D2: fixed50. '
         f'При n=50 интервал может быть широким. D0: фактически {d0["n"]} пар; расширение до 500 '+('выполнено по заранее записанному правилу.' if d0['n']==500 else 'не потребовалось по заранее записанному правилу.')+' Один seed обучения ограничивает перенос вывода на другие seeds.',
         '', 'Все числа: [paired results](evaluation/results.json), [CSV](evaluation/summary.csv), [logs](logs/), [pins](configs/pins.json), [дизайн](docs/DESIGN_RU.md). '
