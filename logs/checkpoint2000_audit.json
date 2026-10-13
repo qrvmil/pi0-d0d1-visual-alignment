@@ -1,0 +1,19 @@
+{
+  "checkpoint": 2000,
+  "metadata_binding_equal": true,
+  "normalization_equal": true,
+  "projector_file_unchanged": true,
+  "observed_updates": 2063,
+  "finite_losses_and_gradient_norms": true,
+  "per_update_exact_balance": true,
+  "optimizer_example_counts": {
+    "D0": 8252,
+    "D1": 8252
+  },
+  "scheduled_checkpoints_present": [
+    0,
+    500,
+    1000,
+    2000
+  ]
+}
