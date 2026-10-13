@@ -147,6 +147,17 @@ def main():
     p=argparse.ArgumentParser();p.add_argument('--arm',choices=['B-control','B-align']);p.add_argument('--task',choices=['D0','D1','D2'])
     p.add_argument('--extended',action='store_true');p.add_argument('--summarize',action='store_true');args=p.parse_args()
     if args.summarize:summarize()
-    else:run(args.arm,args.task,args.extended)
+    else:
+        for arm in ('B-control','B-align'):
+            if json.loads((ROOT/'logs'/f'{arm}_complete.json').read_text())['steps']!=3001:
+                raise RuntimeError('Both main runs must finish before evaluator preflight')
+        resume=ROOT/'logs/fresh_process_resume.json'
+        if not resume.exists():
+            import subprocess
+            env=dict(os.environ);env.pop('XLA_FLAGS',None);env['XLA_PYTHON_CLIENT_PREALLOCATE']='false'
+            with (ROOT/'logs/fresh_process_resume.log').open('w') as output:
+                subprocess.check_call(['/root/maniskill_myws/third_party/openpi/.venv/bin/python','-u','-m','alignment.fresh_resume'],cwd=ROOT,env=env,stdout=output,stderr=subprocess.STDOUT)
+        if json.loads(resume.read_text())['status']!='passed':raise RuntimeError('Fresh-process resume preflight failed')
+        run(args.arm,args.task,args.extended)
 
 if __name__=='__main__':main()

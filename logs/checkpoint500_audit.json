@@ -1,0 +1,16 @@
+{
+  "checkpoint": 500,
+  "metadata_binding_equal": true,
+  "normalization_equal": true,
+  "projector_file_unchanged": true,
+  "observed_updates": 554,
+  "finite_losses_and_gradient_norms": true,
+  "per_update_exact_balance": true,
+  "optimizer_example_counts": {
+    "D0": 2216,
+    "D1": 2216
+  },
+  "checkpoint_file_count": 38,
+  "restored_optimizer_step": 500,
+  "train_state_restored_on_cpu": true
+}
