@@ -33,6 +33,11 @@ def require_current_binding(saved,current):
     if any(saved.get(k)!=v for k,v in current.items()):raise ValueError('Current evaluation binding differs from saved artifacts')
 
 
+def require_evaluation_resume_binding(saved,current):
+    serialized=json.loads(json.dumps(current))
+    if saved!=serialized:raise ValueError('Evaluation checkpoint/normalization/runtime binding drift')
+
+
 def needs_extended_cohort(cohorts):
     return any(r['seed']>=10050 for rows in cohorts for r in rows)
 
@@ -83,7 +88,7 @@ def run(arm,task,extended=False):
     binding_path=output/'binding.json'
     binding=dict(session.binding,arm=arm,task=task,noise_stream='numpy.default_rng(reset_seed), fixed shape50x32, consumed on replanning')
     if binding_path.exists():
-        if json.loads(binding_path.read_text())!=binding:raise ValueError('Evaluation checkpoint/normalization/runtime binding drift')
+        require_evaluation_resume_binding(json.loads(binding_path.read_text()),binding)
     elif rows:raise ValueError('Unbound stale evaluation rows')
     else:binding_path.write_text(json.dumps(binding,indent=2))
     if len({r['seed'] for r in rows})!=len(rows) or any(r['seed'] not in seed_plan(extended) for r in rows):

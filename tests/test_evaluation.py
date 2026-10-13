@@ -38,3 +38,17 @@ def test_one_arm_partial_extension_resumes_both_at500():
     from alignment.evaluation import needs_extended_cohort
     assert needs_extended_cohort([[{'seed':10000},{'seed':10050}],[{'seed':10000}]])
     assert not needs_extended_cohort([[{'seed':10000}],[{'seed':10049}]])
+
+
+def test_evaluation_resume_handles_json_sequence_types_without_relaxing_binding():
+    import json
+    from alignment.evaluation import require_evaluation_resume_binding
+    current={'seen_tasks':('D0','D1'),'checkpoint_params':{'params':'original'},'normalization_sha256':'norm'}
+    saved=json.loads(json.dumps(current))
+    require_evaluation_resume_binding(saved,current)
+    with pytest.raises(ValueError,match='binding'):
+        require_evaluation_resume_binding(saved,dict(current,checkpoint_params={'params':'changed'}))
+    with pytest.raises(ValueError,match='binding'):
+        require_evaluation_resume_binding(saved,dict(current,seen_tasks=('D0','D2')))
+    with pytest.raises(ValueError,match='binding'):
+        require_evaluation_resume_binding(dict(saved,extra='unexpected'),current)
