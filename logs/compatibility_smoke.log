@@ -1,0 +1,25 @@
+Tue Oct 13 19:45:00 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.159.03             Driver Version: 580.159.03     CUDA Version: 13.4     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-80GB          On  |   00000000:C1:00.0 Off |                    0 |
+| N/A   21C    P0             59W /  400W |       0MiB /  81920MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+
+JAX 0.5.3 DEVICES [CudaDevice(id=0)] CUDA_RUNTIME 12080
+INITIALIZING_ACTUAL_PI0
+COMPILING_FORWARD_BACKWARD
+SMOKE_PASSED {"status": "passed", "jax": "0.5.3", "cuda_runtime": 12080, "devices": ["cuda:0"], "architecture": "pi0 gemma_2b_lora/gemma_300m_lora + SigLIP So400m/14", "batch_size": 1, "loss": 3.6795547008514404, "gradient_norm": 561218.8125, "memory_stats": {"num_allocs": 13524, "bytes_in_use": 24589861376, "peak_bytes_in_use": 36878148864, "largest_alloc_size": 4831838208, "bytes_limit": 63820333056, "bytes_reserved": 0, "peak_bytes_reserved": 0, "largest_free_block_bytes": 0, "pool_bytes": 38795214848, "peak_pool_bytes": 38795214848}, "seconds": 105.1456880569458, "hardware": "Tue Oct 13 19:45:00 2026       \n+-----------------------------------------------------------------------------------------+\n| NVIDIA-SMI 580.159.03             Driver Version: 580.159.03     CUDA Version: 13.4     |\n+-----------------------------------------+------------------------+----------------------+\n| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |\n| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |\n|                                         |                        |               MIG M. |\n|=========================================+========================+======================|\n|   0  NVIDIA A100-SXM4-80GB          On  |   00000000:C1:00.0 Off |                    0 |\n| N/A   21C    P0             59W /  400W |       0MiB /  81920MiB |      0%      Default |\n|                                         |                        |             Disabled |\n+-----------------------------------------+------------------------+----------------------+\n\n+-----------------------------------------------------------------------------------------+\n| Processes:                                                                              |\n|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |\n|        ID   ID                                                               Usage      |\n|=========================================================================================|\n|  No running processes found                                                             |\n+-----------------------------------------------------------------------------------------+\n", "blackwell_verified": false}

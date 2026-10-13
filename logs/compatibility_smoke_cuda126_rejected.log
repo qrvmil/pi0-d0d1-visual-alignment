@@ -1,0 +1,32 @@
+Tue Oct 13 19:44:44 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 580.159.03             Driver Version: 580.159.03     CUDA Version: 13.4     |
++-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-80GB          On  |   00000000:C1:00.0 Off |                    0 |
+| N/A   21C    P0             59W /  400W |       0MiB /  81920MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+
+JAX 0.5.3 DEVICES [CudaDevice(id=0)] CUDA_RUNTIME 12060
+Traceback (most recent call last):
+  File "<frozen runpy>", line 198, in _run_module_as_main
+  File "<frozen runpy>", line 88, in _run_code
+  File "/root/pi0-d0d1-visual-alignment/alignment/smoke.py", line 70, in <module>
+    main()
+  File "/root/pi0-d0d1-visual-alignment/alignment/smoke.py", line 31, in main
+    validate_runtime(jax.devices()[0].platform,version)
+  File "/root/pi0-d0d1-visual-alignment/alignment/smoke.py", line 13, in validate_runtime
+    raise RuntimeError(f'CUDA runtime >=12.8 required; got {version}')
+RuntimeError: CUDA runtime >=12.8 required; got 12060
