@@ -1,0 +1,25 @@
+{
+  "status": "complete",
+  "steps": 3001,
+  "seconds": 3260.307682991028,
+  "checkpoints": [
+    0,
+    500,
+    1000,
+    2000,
+    3001
+  ],
+  "memory_stats": {
+    "num_allocs": 671949,
+    "bytes_in_use": 13839012352,
+    "peak_bytes_in_use": 21895019264,
+    "largest_alloc_size": 5868328192,
+    "bytes_limit": 63820333056,
+    "bytes_reserved": 0,
+    "peak_bytes_reserved": 0,
+    "largest_free_block_bytes": 0,
+    "pool_bytes": 34361835520,
+    "peak_pool_bytes": 34361835520
+  },
+  "projector_frozen": true
+}
