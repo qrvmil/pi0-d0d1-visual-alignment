@@ -1,0 +1,108 @@
+Подготовь, выполни и опубликуй воспроизводимый эксперимент visual representation alignment для π0 на LIBERO. Работай автономно: инспекция → реализация с тестами → smoke run → обучение → evaluation → отчёт → публикация. Не ограничивайся планом.
+
+Машина использует RTX 6000D Blackwell 84 GB. До загрузки датасетов и запуска обучения проведи compatibility smoke test: nvidia-smi, CUDA>=12.8, импорт JAX, jax.devices(), простая JAX matmul на GPU, импорт OpenPI и один forward/backward step. Если закреплённый jaxlib не поддерживает Blackwell, подбери минимальное совместимое обновление JAX/CUDA plugin, зафиксируй версии и повтори тест. Не начинай дорогое обучение, пока smoke test не пройден.
+
+Главная статья:
+- PDF: https://arxiv.org/pdf/2510.25616
+- HTML: https://arxiv.org/html/2510.25616
+Сначала прочитай статью и кратко зафиксируй, какие её решения переносим на π0, а какие пришлось адаптировать из-за другой архитектуры и flow-matching objective.
+
+Источники и pins:
+- repo: https://github.com/qrvmil/maniskill_myws.git
+- checkout: c6b77f51e3e5bd8873b812d258744c43380fdfeb
+- OpenPI: 981483dca0fd9acba698fea00aa6e52d56a66c58
+- LIBERO: 8f1084e3132a39270c3a13ebe37270a43ece2a01
+- reference checkpoints: HF qrvmil/pi0-multitask-sft-generalization
+- HF revision: 0e27d62f16cc276c33d5e3b2107cb1f24dce7792
+- teacher: nvidia/C-RADIOv3-L; зафиксируй точную HF revision.
+
+Задачи:
+- D0: libero_spatial / pick_up_the_black_bowl_from_table_center_and_place_it_on_the_plate
+- D1: libero_spatial / pick_up_the_black_bowl_next_to_the_plate_and_place_it_on_the_plate
+- D2, held-out OOD: libero_goal / put_the_bowl_on_the_stove
+- обучаться разрешено только на D0+D1;
+- D2 запрещено использовать для обучения, calibration, настройки λ, выбора checkpoint, normalization и отладки.
+
+Запуски из одной и той же исходной π0:
+1. B-control: D0+D1 SFT с детерминированными аугментациями, без alignment.
+2. B-align: идентичный SFT плюс visual alignment.
+3. Существующий B использовать только как reference, не как causal control.
+
+Alignment:
+- предвычислить C-RADIOv3-L spatial features для обеих валидных камер;
+- K=4 детерминированные аугментации на sample;
+- хранить sample ID, параметры/seed аугментации и teacher features в bf16/fp16 sharded cache с manifest и checksums;
+- π0 должна получать в точности ту же аугментированную картинку; дополнительных случайных аугментаций быть не должно;
+- masked/dummy camera slots исключать;
+- извлекать только middle hidden state PaliGemma, ориентировочно блок 9 из 18, не материализуя все слои;
+- привести spatial grid teacher к grid student и проверять соответствие patch/view;
+- сначала обучить LN+MLP projector при замороженной π0, затем заморозить projector;
+- loss: L = L_flow + λ·L_align, где L_align — cosine loss;
+- начать с λ=0.2;
+- выполнить короткий pilot только на D0+D1, логируя L_flow, L_align и отношение gradient norms;
+- изменять λ только по заранее записанному правилу, если alignment явно доминирует или исчезает;
+- B-control и B-align должны иметь одинаковые base weights, data order, augmentations, optimizer, schedule, batch size и seeds.
+
+Проверки:
+- deterministic augmentation replay;
+- корректный cache lookup;
+- camera masks;
+- spatial/token correspondence;
+- teacher и projector действительно frozen;
+- D2 отсутствует во всех training/calibration dataloaders;
+- одинаковая инициализация control/align;
+- finite loss и gradients;
+- resume после остановки;
+- сначала 2-sample cache test и 1–5 training steps;
+- измерить peak VRAM; при OOM уменьшить batch size и использовать gradient accumulation, не меняя effective batch.
+
+Evaluation:
+- paired B-control vs B-align rollouts;
+- одинаковые reset seeds и flow-noise streams;
+- отдельно D0, D1 и D2;
+- D0 non-inferiority:
+  Δ = SR(B-align) − SR(B-control);
+  нижняя односторонняя 95% граница для Δ должна быть строго выше −0.02;
+- сначала 50 paired seeds для совместимости с предыдущими результатами;
+- если интервал слишком широкий, честно написать «результат статистически неопределён»;
+- предусмотреть заранее зафиксированное расширение D0 до 500 пар, без cherry-picking;
+- D2 — основной OOD outcome: показать paired effect и 95% CI;
+- не объявлять успех, если статистический критерий не выполнен.
+
+Отчёт:
+Создай `REPORT_RU.md` — короткий, человекочитаемый русскоязычный отчёт, понятный с первого взгляда и без воды.
+
+В начале отчёта обязательно размести:
+1. итог в 3–5 предложениях;
+2. компактную таблицу D0/D1/D2 для B-original, B-control и B-align;
+3. Δ, 95% CI и явный статус каждого критерия: «ПРОЙДЕН», «НЕ ПРОЙДЕН» или «НЕОПРЕДЕЛЁН»;
+4. прямой ответ: помог ли alignment генерализации на D2 и сохранил ли D0 в пределах 2 п.п.
+
+Далее кратко:
+- что было обучено;
+- чем B-control отличается от B-align;
+- какие части статьи перенесены;
+- что адаптировано для π0;
+- конфигурация обучения;
+- число episodes/seeds;
+- VRAM, длительность и примерная стоимость;
+- графики losses и success rates с интервалами;
+- обнаруженные проблемы и ограничения;
+- точные команды воспроизведения.
+
+Не заполняй отчёт общими рассуждениями. Каждое утверждение о результате подкрепляй числом, CI, логом или ссылкой на артефакт.
+
+Публикация:
+- создай или используй GitHub-репозиторий `qrvmil/pi0-d0d1-visual-alignment`;
+- запушь туда весь код, конфиги, тесты, manifests, команды, environment lock, REPORT_RU.md, таблицы, графики, evaluation JSON/CSV, небольшие видео и логи;
+- большие видео при необходимости храни через Git LFS или в HF;
+- создай HF model repo `qrvmil/pi0-d0d1-visual-alignment`;
+- загрузи туда все созданные checkpoints B-control и B-align, frozen projector, normalization assets, checkpoint metadata, configs и model card на русском;
+- сохрани все checkpoint steps, которые созданы расписанием обучения, а не только лучший;
+- в GitHub README добавь ссылки на HF checkpoints и статью;
+- в HF model card добавь ссылку на GitHub, описание D0/D1/D2 и предупреждение, что D2 не использовалось для выбора модели;
+- создай финальный GitHub Release с отчётом и ссылками на HF;
+- проверь, что ссылки доступны и файлы скачиваются;
+- выведи в финале GitHub URL, HF URL, commit SHA, release tag и список загруженных checkpoints.
+
+Не публикуй datasets, C-RADIO cache, исходные upstream checkpoints, API-токены, `.env`, SSH-ключи или другие секреты. Если `gh` или `hf` не авторизованы, остановись только в точке публикации и сообщи минимальные команды авторизации; после авторизации продолжи загрузку без повторного обучения.

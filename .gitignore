@@ -1,0 +1,9 @@
+__pycache__/
+.pytest_cache/
+.venv/
+private/
+checkpoints/
+cache/
+datasets/
+*.env
+.env*
