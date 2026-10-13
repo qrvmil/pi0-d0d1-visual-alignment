@@ -51,8 +51,8 @@ def main():
             writer.add(row['sample_id'],aug,grid.cpu().numpy().astype(np.float16),item['params'],item['image_sha256'])
         if i%100==0:print('CACHE_PROGRESS',i,len(rows),round(time.time()-started,1),flush=True)
     manifest=writer.finish()
-    unchanged=True if before is None else all(torch.equal(p,dict(teacher.named_parameters())[n]) for n,p in before)
-    assert unchanged
+    unchanged=None if before is None else all(torch.equal(p,dict(teacher.named_parameters())[n]) for n,p in before)
+    assert unchanged is not False
     info=dict(samples=len(rows),entries=len(manifest['index']),seconds=time.time()-started,
               peak_vram_bytes=torch.cuda.max_memory_allocated(),teacher_parameters_frozen=True,
               teacher_state_unchanged=unchanged,manifest_sha256=sha256(dest/'manifest.json'))

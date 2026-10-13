@@ -4,6 +4,7 @@
   "seconds": 940.7341244220734,
   "peak_vram_bytes": 1316537856,
   "teacher_parameters_frozen": true,
-  "teacher_state_unchanged": true,
-  "manifest_sha256": "9ef63d279ae16b4e640d5b1cce18ffa5eeb64ce13085cc969f25495fcf4d88c1"
+  "teacher_state_unchanged": null,
+  "manifest_sha256": "9ef63d279ae16b4e640d5b1cce18ffa5eeb64ce13085cc969f25495fcf4d88c1",
+  "teacher_state_equality_scope": "Exact before/after parameter comparison performed in two-sample smoke; full-cache run enforced eval/requires_gradFalse/inference_mode, no optimizer"
 }
