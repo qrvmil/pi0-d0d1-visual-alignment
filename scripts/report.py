@@ -64,7 +64,7 @@ def main():
                 row=original[task];sr=float(row['success_rate']);lo=float(row['ci_low']);hi=float(row['ci_high'])
             else:
                 rows=json.loads((ROOT/'evaluation'/arm/task/'episodes.json').read_text());k=sum(bool(x['success']) for x in rows)
-                sr=k/len(rows);lo,hi=cp(k,len(rows),.025)
+                sr=k/len(rows);lo,hi=cp(k,len(rows),.0125 if task=='D0' else .025)
             error_low,error_high=interval_errors(sr,lo,hi)
             means.append(sr*100);lower.append(error_low);upper.append(error_high)
         ax.errorbar(xx+(j-1)*.15,means,yerr=[lower,upper],fmt='o',capsize=4,label=arm)
@@ -86,7 +86,7 @@ def main():
         'B-original — исторический reference из pinned source, а не causal control. D0 критерий: нижняя граница строго>−2 п.п.; D2: нижняя paired 95% CI строго>0. D1 показана как exploratory superiority.',
         '', 'Обучены новые B-control и B-align: LoRA32 в PaliGemma/action expert плюс параметры, которые upstream low-memory recipe оставляет trainable (включая SigLIP). Отличие arms — frozen-projector cosine regularizer. '
         'Перенесены frozen C-RADIO, middle backbone patch alignment и предварительно обученный LN+MLP с последующим замораживанием. Адаптации: flow matching вместо CE, девятый блок PaliGemma, 2 камеры, bilinear 14×14 → 16×16. '
-        'Middle state вычисляется prefix-only первыми 9 блоками; тест доказывает совпадение с prefix state при action suffix, все слои не материализуются.',
+        'Middle state вычисляется prefix-only первыми 9 блоками; actual π0 integration измерила relative RMSE 0,00396 при заранее заданном BF16 допуске 0,005 ([лог](logs/model_integration.json)); все слои не материализуются.',
         '',f'Конфигурация: seed 0, 3001 optimizer updates, effective batch 8; {json.loads((ROOT/"configs/memory_recipe.json").read_text())}; '
         f'λ={json.loads((ROOT/"configs/lambda_decision.json").read_text())["selected"]}. Projector: 200 updates; pilot: 20 updates; K=4. '
         f'Демонстрации: 50 D0 + 50 D1; {json.loads((ROOT/"configs/normalization_provenance.json").read_text())["frames"]} кадров. '
@@ -103,12 +103,14 @@ def main():
             nvml=f"{memory['peak_process_vram_bytes']/2**30:.2f}"
         lines.append(f'|{arm}|{memory["wall_seconds"]/3600:.2f}|{nvml}|{v["memory_stats"]["peak_bytes_in_use"]/2**30:.2f}|{v["memory_stats"]["peak_pool_bytes"]/2**30:.2f}|')
     lines.extend(['', 'GPU: фактически A100-SXM4-80GB. Blackwell smoke не проверен на этой машине. Driver 580.159.03; JAX 0.5.3, CUDA runtime 12.8. '+cost_text(),
-        '', 'L_align показана для B-align; в B-control этот loss не вычисляется.', '![Losses](figures/losses.png)', '![Success rates](figures/success_rates.png)', '',
+        '', 'L_align показана для B-align; в B-control этот loss не вычисляется. Интервалы SR на графике: exact CP; D0 с поправкой на два предусмотренных просмотра, D1/D2 fixed-cohort95%; исторический reference использует исходные Wilson95%.', '![Losses](figures/losses.png)', '![Success rates](figures/success_rates.png)', '',
         'Проблемы: NVML host PID отличается от PID контейнера; первоначальная per-process серия возвращала ложные нули и признана недоступной. JAX allocations/pool peaks измерены за весь процесс; B-align NVML probe подключён после первых updates и помечен как частичное окно, не полный peak всего run. '
         'CUDA 12.6 обновлена до 12.8; локальный HF dynamic loader и per-tensor loading RADIO несовместимы с выбранным Transformers, использована прямая загрузка полного pinned safetensors state_dict с strict=True. '
+        'При первом D0 rollout отсутствовал system ffmpeg: видео валидировано после установки, эпизод сохранён; JSON tuple/list сравнение resume исправлено с сохранением строгой проверки binding ([лог](logs/evaluation_dependency_recovery.json)). '
         'Доверительные границы — консервативные exact CP с marginal Bonferroni. D0: односторонний критерий и двухсторонний CI учитывают 2 заранее заданных просмотра; D1/D2: fixed50. '
         f'При n=50 интервал может быть широким. D0: фактически {d0["n"]} пар; расширение до 500 '+('выполнено по заранее записанному правилу.' if d0['n']==500 else 'не потребовалось по заранее записанному правилу.')+' Один seed обучения ограничивает перенос вывода на другие seeds.',
-        '', 'Все числа: [paired results](evaluation/results.json), [CSV](evaluation/summary.csv), [logs](logs/), [pins](configs/pins.json), [дизайн](docs/DESIGN_RU.md). '
+        '', 'Первые 50 пар по всем задачам: [архив результатов](evaluation/first50/results.json), [CSV](evaluation/first50/summary.csv). '
+        'Все числа: [paired results](evaluation/results.json), [CSV](evaluation/summary.csv), [logs](logs/), [pins](configs/pins.json), [дизайн](docs/DESIGN_RU.md). '
         'Исторический reference: [pinned table](https://github.com/qrvmil/maniskill_myws/blob/c6b77f51e3e5bd8873b812d258744c43380fdfeb/docs/multitask_sft/success_rates.csv). '
         '[Статья](https://arxiv.org/html/2510.25616).',
         '', 'Воспроизведение (полные команды и environment lock в README):', '```bash',
