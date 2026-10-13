@@ -1,0 +1,26 @@
+{
+  "status": "verified",
+  "steps": 3001,
+  "all_scheduled_checkpoints": [
+    0,
+    500,
+    1000,
+    2000,
+    3001
+  ],
+  "all_checkpoint_bindings_and_norms_equal": true,
+  "optimizer_examples": {
+    "D0": 12004,
+    "D1": 12004
+  },
+  "all_losses_and_gradient_norms_finite": true,
+  "paired_batch_sample_and_image_hashes_equal_all3001": true,
+  "projector_file_unchanged": true,
+  "initial_parameter_sha256": "43f7c62aedacb8ee93fbbd829c93a878335368b12a4864419e2fc9128cbc7d47",
+  "process_wall_seconds": 4736.2160885334015,
+  "training_loop_wall_seconds": 4620.338266372681,
+  "peak_jax_allocation_gib": 25.29727530479431,
+  "peak_jax_pool_gib": 32.001953125,
+  "partial_window_nvml_peak_gib": 32.484375,
+  "partial_window_nvml_source": "logs/B-align_attached_vram.json"
+}
