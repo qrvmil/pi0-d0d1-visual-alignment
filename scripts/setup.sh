@@ -13,7 +13,7 @@ uv pip install --python .venv/bin/python --no-deps 'nvidia-cuda-runtime-cu12==12
 uv pip install --python .venv/bin/python --no-deps -r /root/pi0-d0d1-visual-alignment/environment.lock.txt
 git -C third_party/libero checkout 8f1084e3132a39270c3a13ebe37270a43ece2a01
 apt-get update -qq
-apt-get install -y -qq libgl1 libegl1 libglvnd0 libgles2
+apt-get install -y -qq libgl1 libegl1 libglvnd0 libgles2 ffmpeg
 .venv/bin/python - <<'PY'
 from pathlib import Path
 import yaml

@@ -14,8 +14,24 @@ fi
 if [[ ! -f configs/lambda_decision.json ]]; then
   "$ALIGN_PY" -u -m alignment.train pilot > logs/pilot.log 2>&1
 fi
-"$ALIGN_PY" -u -m alignment.train B-control > logs/B-control.log 2>&1
-"$ALIGN_PY" -u -m alignment.train B-align > logs/B-align.log 2>&1
+for arm in B-control B-align; do
+  if [[ -f "logs/${arm}_complete.json" ]]; then
+    "$ALIGN_PY" - "$arm" <<'PY_GATE'
+import json,sys
+from pathlib import Path
+arm=sys.argv[1];result=json.loads(Path(f'logs/{arm}_complete.json').read_text())
+assert result['status']=='complete' and result['steps']==3001
+binding=json.loads(Path(f'configs/{arm}.json').read_text())
+for step in result['checkpoints']:
+    checkpoint=Path(f'private/checkpoints/{arm}/{step}')
+    assert json.loads((checkpoint/'experiment_metadata.json').read_text())['binding']==binding
+    assert (checkpoint/'params').is_dir() and (checkpoint/'train_state').is_dir()
+print('PRESERVE_COMPLETED_MAIN',arm)
+PY_GATE
+  else
+    "$ALIGN_PY" -u -m alignment.train "$arm" > "logs/${arm}.log" 2>&1
+  fi
+done
 for task in D0 D1 D2; do
   for arm in B-control B-align; do
     "$ALIGN_PY" -u -m alignment.evaluation --arm "$arm" --task "$task" > "logs/eval_${arm}_${task}.log" 2>&1

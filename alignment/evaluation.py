@@ -148,6 +148,9 @@ def main():
     p.add_argument('--extended',action='store_true');p.add_argument('--summarize',action='store_true');args=p.parse_args()
     if args.summarize:summarize()
     else:
+        import shutil
+        missing=[name for name in ('ffmpeg','ffprobe') if shutil.which(name) is None]
+        if missing:raise RuntimeError('Video validation requires system executables: '+', '.join(missing)+'; install ffmpeg before evaluation')
         for arm in ('B-control','B-align'):
             if json.loads((ROOT/'logs'/f'{arm}_complete.json').read_text())['steps']!=3001:
                 raise RuntimeError('Both main runs must finish before evaluator preflight')

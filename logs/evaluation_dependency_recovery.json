@@ -1,0 +1,13 @@
+{
+  "problem": "Missing system ffmpeg stopped first D0 rollout during video validation; training unaffected",
+  "first_pipeline_exit": 1,
+  "original_episode_retained": true,
+  "first_video_full_decode_passed": true,
+  "expected_frames": 221,
+  "ffmpeg_version": "ffmpeg version 6.1.1-3ubuntu5 Copyright (c) 2000-2023 the FFmpeg developers",
+  "dependencies": [
+    "ffmpeg",
+    "ffprobe"
+  ],
+  "completed_main_skip": "pipeline validates completed checkpoint bindings and preserves original training logs and VRAM timing on resume"
+}
