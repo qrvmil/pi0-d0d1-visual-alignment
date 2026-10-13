@@ -210,6 +210,13 @@ def main():
         smoke(state,batches,projector,cfg)
     elif args.mode=='calibrate':calibrate(state,batches,200,ROOT/'private/projector.npz')
     else:
+        calibration=json.loads((ROOT/'logs/projector_calibration.json').read_text())
+        if calibration['updates']!=200 or not calibration['policy_parameters_unchanged']:
+            raise ValueError('Projector calibration incomplete')
+        if sha256(ROOT/'private/projector.npz')!=calibration['projector_sha256']:
+            raise ValueError('Frozen projector differs from completed calibration')
+        if parameter_digest(state.params)!=calibration['initial_parameter_sha256']:
+            raise ValueError('Policy initialization differs from frozen-policy calibration')
         projector=load_projector(ROOT/'private/projector.npz');size=json.loads((ROOT/'configs/memory_recipe.json').read_text())['microbatch']
         if args.mode=='pilot':pilot(state,batches,projector,cfg,size)
         else:

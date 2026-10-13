@@ -98,7 +98,7 @@ def main():
         '', 'Воспроизведение (полные команды и environment lock в README):', '```bash',
         'bash scripts/setup.sh', 'source scripts/env.sh', '$ALIGN_PY -m pytest -q', '$ALIGN_PY -m alignment.smoke',
         '$ALIGN_PY scripts/fetch.py', '$ALIGN_PY -m alignment.build_cache --samples 2',
-        '$ALIGN_PY -m alignment.train smoke', 'bash scripts/pipeline.sh', '```'])
+        '$ALIGN_PY -m alignment.train smoke', '$ALIGN_PY -u scripts/run_pipeline.py', '```'])
     (ROOT/'REPORT_RU.md').write_text('\n'.join(lines)+'\n')
 
 if __name__=='__main__':main()

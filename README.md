@@ -18,7 +18,7 @@ $ALIGN_PY -u -m alignment.smoke > logs/compatibility_smoke.log 2>&1
 $ALIGN_PY -u scripts/fetch.py > logs/fetch.log 2>&1
 $ALIGN_PY -u -m alignment.build_cache --samples 2 > logs/cache_smoke.log 2>&1
 $ALIGN_PY -u -m alignment.train smoke > logs/data_training_smoke.log 2>&1
-bash scripts/pipeline.sh
+$ALIGN_PY -u scripts/run_pipeline.py
 ```
 
 В `private/` находятся datasets, исходные π0/C-RADIO weights, teacher cache, frozen projector и созданные checkpoints; эта директория исключена из git. Код публикации загружает в HF **только созданные** B-control/B-align checkpoints и projector, normalization assets/configs/model card. Dataset, teacher cache и исходные upstream checkpoints не публикуются.
