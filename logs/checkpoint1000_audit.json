@@ -1,0 +1,10 @@
+{
+  "checkpoint": 1000,
+  "metadata_binding_equal": true,
+  "normalization_equal": true,
+  "scheduled_checkpoints_present": [
+    0,
+    500,
+    1000
+  ]
+}
