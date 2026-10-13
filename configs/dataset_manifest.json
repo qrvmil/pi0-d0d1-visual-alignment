@@ -1,0 +1,12 @@
+{
+  "D0": {
+    "path": "libero_spatial/pick_up_the_black_bowl_from_table_center_and_place_it_on_the_plate_demo.hdf5",
+    "sha256": "75ede0cf5fbfc925093671b55032ad80f1b1f1cf35442ec6c663460d37d3e0b3",
+    "revision": "f13aa24a3da8c43c7225569f28c562979fa0e35a"
+  },
+  "D1": {
+    "path": "libero_spatial/pick_up_the_black_bowl_next_to_the_plate_and_place_it_on_the_plate_demo.hdf5",
+    "sha256": "3961cb7126eaca47d0f5be29eb297bb62e7591e3c86172c9587c0bf670112f84",
+    "revision": "f13aa24a3da8c43c7225569f28c562979fa0e35a"
+  }
+}

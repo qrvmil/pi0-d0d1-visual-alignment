@@ -1,0 +1,64 @@
+{
+  "status": "passed",
+  "updates": [
+    {
+      "step": 1,
+      "align": 0.3842170536518097,
+      "flow": 0.24226373434066772,
+      "grad_norm": 3.419783353805542,
+      "loss": 0.31910714507102966
+    },
+    {
+      "step": 2,
+      "align": 0.38367223739624023,
+      "flow": 0.23675507307052612,
+      "grad_norm": 3.3056821823120117,
+      "loss": 0.31348952651023865
+    },
+    {
+      "step": 3,
+      "align": 0.3833189606666565,
+      "flow": 0.17369996011257172,
+      "grad_norm": 2.510740280151367,
+      "loss": 0.2503637671470642
+    },
+    {
+      "step": 4,
+      "align": 0.38190799951553345,
+      "flow": 0.21415942907333374,
+      "grad_norm": 2.699889898300171,
+      "loss": 0.29054102301597595
+    },
+    {
+      "step": 5,
+      "align": 0.3835398554801941,
+      "flow": 0.2410183846950531,
+      "grad_norm": 2.970351219177246,
+      "loss": 0.31772637367248535
+    }
+  ],
+  "projector_frozen": true,
+  "resume_params_and_optimizer_exact": true,
+  "camera_masks": {
+    "base": true,
+    "left_wrist": true,
+    "right_wrist": false
+  },
+  "memory_stats": {
+    "num_allocs": 18955,
+    "bytes_in_use": 13658306304,
+    "peak_bytes_in_use": 27193756416,
+    "largest_alloc_size": 11250846720,
+    "bytes_limit": 63820333056,
+    "bytes_reserved": 0,
+    "peak_bytes_reserved": 0,
+    "largest_free_block_bytes": 0,
+    "pool_bytes": 63820333056,
+    "peak_pool_bytes": 63820333056
+  },
+  "tasks": [
+    "D0",
+    "D1"
+  ],
+  "microbatch": 8
+}

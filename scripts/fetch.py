@@ -21,7 +21,8 @@ def main():
     require_seen(tuple(TASKS))
     api=HfApi()
     repo='yifengzhu-hf/LIBERO-datasets'
-    rev=api.dataset_info(repo).sha
+    existing_pins=json.loads((ROOT/'configs/pins.json').read_text()) if (ROOT/'configs/pins.json').exists() else {}
+    rev=existing_pins.get('dataset_revision') or api.dataset_info(repo).sha
     pins=dict(source='c6b77f51e3e5bd8873b812d258744c43380fdfeb',
               openpi='981483dca0fd9acba698fea00aa6e52d56a66c58',libero='8f1084e3132a39270c3a13ebe37270a43ece2a01',
               teacher='9d0413465e8a91e67bbf2c1ad342815478d1b906',dataset_revision=rev,
@@ -39,7 +40,9 @@ def main():
                       ignore_patterns=['*.pth.tar'])
     prefix='checkpoints/pi0_base/'
     objects=[];page=None
-    while True:
+    saved_inventory=ROOT/'configs/base_inventory.json'
+    if saved_inventory.exists():objects=json.loads(saved_inventory.read_text())
+    while not objects or page:
         params={'prefix':prefix}
         if page:params['pageToken']=page
         r=requests.get('https://storage.googleapis.com/storage/v1/b/openpi-assets/o',params=params,timeout=60)
@@ -53,7 +56,7 @@ def main():
         dest=PRIVATE/'base'/relative;dest.parent.mkdir(parents=True,exist_ok=True)
         if not dest.exists() or dest.stat().st_size!=int(obj['size']):
             tmp=dest.with_name(dest.name+'.download')
-            with requests.get('https://storage.googleapis.com/openpi-assets/'+obj['name'],stream=True,timeout=120) as response:
+            with requests.get('https://storage.googleapis.com/openpi-assets/'+obj['name'],params={'generation':obj['generation']},stream=True,timeout=120) as response:
                 response.raise_for_status()
                 with tmp.open('wb') as f:
                     for block in response.iter_content(8*1024*1024):f.write(block)

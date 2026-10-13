@@ -1,0 +1,12 @@
+{
+  "tasks": [
+    "D0",
+    "D1"
+  ],
+  "demos_per_task": 50,
+  "frames": 11745,
+  "action_horizon": 50,
+  "method": "all seen frames, native next-action shift, terminal-clamped chunk-weighted mean/std",
+  "source_manifest_sha256": "6025d5d9c3d877b89c141ef886871b468188f0652d1303d19b26b05c3b5fcf28",
+  "normalization_sha256": "d4d3cde5dfcb52a107893c04a65938f1b3c8004253659617d5540879b8d8dddb"
+}

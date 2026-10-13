@@ -5,3 +5,13 @@
 - GitHub qrvmil and HF qrvmil authorized.
 - Ruling: run on actual A100 and explicitly record hardware deviation; do not claim Blackwell validation. Cost if wrong: cannot prove portability to requested Blackwell until a separate real-hardware test.
 - Ruling: conservative exact paired CI instead of degenerate percentile bootstrap; D0 Bonferroni protects two prespecified looks. Cost: less statistical power, more honest inconclusive outcomes.
+- Compatibility smoke passed on actual A100: JAX0.5.3/CUDA runtime12080, loss3.6795547, finite grad norm561218.8125, peak JAX allocations34.35GiB,105.15s. Driver CUDA maximum13.4 is distinct from runtime.
+- Environment dependency install reverted CUDA runtime to12.6; restored12.8 with --no-deps and revalidated runtime in real training smoke.
+- Source dataset revision f13aa24a3da8c43c7225569f28c562979fa0e35a; only exact D0/D1 HDF5 files fetched, checksum manifest written.100 expert demos,11745 aligned frames. Base GCS objects checked against generation inventory+MD5 and local SHA256.
+- Two-sample teacher smoke passed:8 augmentation entries,2 cameras, teacher parameter equality verified, peak2.42GiB,0.615s.
+- Ruling: direct pinned RADIOConfig+RADIOModel+strict complete safetensors load, because Transformers dynamic dependency copy omitted a conditional relative import and its per-tensor meta loading violated RADIO LayerScale loader assumptions. Cost if wrong: teacher output invalid; complete strict load and finite/frozen feature smoke checked.
+- Dummy-model middle correspondence, spatial mask and frozen-projector gradient tests passed. Actual real π0 data smoke passed5 updates withbatch8, Lflow0.1737–0.2423, Lalign0.3819–0.3842, gradnorm2.51–3.42. Exact parameter+optimizer restore checked atupdate2; peak JAX allocations25.33GiB. No OOM, no accumulation required.
+- D0-only simulator smoke passed resetseed60000 and one zero action; render cameras256x256.
+- Independent review found resume/config drift, replayed log tail, stale evaluation cohort, step0 metadata and publication allowlist/export issues. Fixes added with regression tests; actual integration added beforepilot.
+- Full cache live unified execsession48706; no calibration/pilot/main training started yet. Main pipeline must await cache completion and actual integration pass. Preserve live process; do not restart merely due observation timeout.
+- Publication not attempted. REPORT_RU.md intentionally generated only after completed paired evaluation; scripts/report.py and scripts/publish.py are implemented but still require end-to-end result-stage verification.

@@ -1,0 +1,38 @@
+FETCHED_SEEN D0 {'path': 'libero_spatial/pick_up_the_black_bowl_from_table_center_and_place_it_on_the_plate_demo.hdf5', 'sha256': '75ede0cf5fbfc925093671b55032ad80f1b1f1cf35442ec6c663460d37d3e0b3', 'revision': 'f13aa24a3da8c43c7225569f28c562979fa0e35a'}
+FETCHED_SEEN D1 {'path': 'libero_spatial/pick_up_the_black_bowl_next_to_the_plate_and_place_it_on_the_plate_demo.hdf5', 'sha256': '3961cb7126eaca47d0f5be29eb297bb62e7591e3c86172c9587c0bf670112f84', 'revision': 'f13aa24a3da8c43c7225569f28c562979fa0e35a'}
+TEACHER_FETCH
+Fetching 27 files:   0%|          | 0/27 [00:00<?, ?it/s]Fetching 27 files:   4%|▎         | 1/27 [00:00<00:14,  1.79it/s]Fetching 27 files:  33%|███▎      | 9/27 [00:00<00:01, 12.99it/s]Fetching 27 files:  44%|████▍     | 12/27 [00:00<00:00, 15.81it/s]Fetching 27 files:  59%|█████▉    | 16/27 [00:01<00:00, 19.63it/s]Fetching 27 files:  70%|███████   | 19/27 [00:01<00:00, 15.57it/s]Fetching 27 files:  81%|████████▏ | 22/27 [00:09<00:04,  1.12it/s]Fetching 27 files: 100%|██████████| 27/27 [00:09<00:00,  2.70it/s]
+BASE_VERIFIED assets/trossen/norm_stats.json
+BASE_VERIFIED assets/franka/norm_stats.json
+BASE_VERIFIED assets/fibocom_mobile/norm_stats.json
+BASE_VERIFIED assets/arx/norm_stats.json
+BASE_VERIFIED assets/arx_mobile/norm_stats.json
+BASE_VERIFIED assets/droid/norm_stats.json
+BASE_VERIFIED assets/ur5e/norm_stats.json
+BASE_VERIFIED assets/ur5e_dual/norm_stats.json
+BASE_VERIFIED params/_CHECKPOINT_METADATA
+BASE_VERIFIED params/_sharding
+BASE_VERIFIED params/_METADATA
+BASE_VERIFIED assets/trossen_mobile/norm_stats.json
+BASE_VERIFIED params/d/85a4b908b188b86024ebb92e85065acd
+BASE_VERIFIED params/manifest.ocdbt
+BASE_VERIFIED params/ocdbt.process_0/d/309555f68bee51df688c4564b4d66fa5
+BASE_VERIFIED params/ocdbt.process_0/d/4e5aa230b6c768224fb6b77d78d6a1be
+BASE_VERIFIED params/ocdbt.process_0/d/5e775a3f399b6add8c3c8330df655e1b
+BASE_VERIFIED params/ocdbt.process_0/d/2f72ae7e4e549700e9d7da10816ed9a4
+BASE_VERIFIED params/ocdbt.process_0/d/6629f15468f4d0cc39fb27518b7034a8
+BASE_VERIFIED params/ocdbt.process_0/d/450c3d3cb6793dc644c1faf981296eb3
+BASE_VERIFIED params/ocdbt.process_0/d/8dd6f7ae99ab482b841a1eefa796bb41
+BASE_VERIFIED params/ocdbt.process_0/d/808abec8853273a1e0076b0e42d19910
+BASE_VERIFIED params/ocdbt.process_0/d/5f605020f3dadefc18287f67f369e264
+BASE_VERIFIED params/ocdbt.process_0/d/085d261a6434a2182b9cf8204a14f929
+BASE_VERIFIED params/ocdbt.process_0/d/93fcf358bb740a5f61526a13e9a2c769
+BASE_VERIFIED params/ocdbt.process_0/d/99debaeabd76bd2cc1600905278c454b
+BASE_VERIFIED params/ocdbt.process_0/d/d5e67a46c20fea80fd9ccf63a434178c
+BASE_VERIFIED params/ocdbt.process_0/manifest.ocdbt
+BASE_VERIFIED params/ocdbt.process_0/d/fc0caaf15ec5a8930e6d0a269722cbe6
+BASE_VERIFIED params/ocdbt.process_0/d/fec2923fef877d6b2a636a44d72670b8
+BASE_VERIFIED params/ocdbt.process_0/d/148068583a1e9abda7c46b410e91850f
+BASE_VERIFIED params/ocdbt.process_0/d/c5e0b7744afd7fde8b33a80d7f0329bc
+BASE_VERIFIED params/ocdbt.process_0/d/45c6cbcc04a07d5f963bcf46cba903c4
+FETCH_COMPLETE

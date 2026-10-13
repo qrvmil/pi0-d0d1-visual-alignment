@@ -1,0 +1,6 @@
+{
+  "microbatch": 8,
+  "accumulation": 1,
+  "effective_batch": 8,
+  "oom_events": []
+}

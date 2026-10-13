@@ -1,0 +1,34 @@
+{
+  "updates": 5,
+  "lr": 0.001,
+  "optimizer": "Adam",
+  "policy_parameters_unchanged": true,
+  "initial_parameter_sha256": "43f7c62aedacb8ee93fbbd829c93a878335368b12a4864419e2fc9128cbc7d47",
+  "projector_sha256": "3623017e665ca2b97aecd5c1b01337385e70fa52dd53b8fcfa7d980a074c522b",
+  "losses": [
+    {
+      "step": 1,
+      "loss": 0.994365930557251
+    },
+    {
+      "step": 2,
+      "loss": 0.7254160642623901
+    },
+    {
+      "step": 3,
+      "loss": 0.5657591819763184
+    },
+    {
+      "step": 4,
+      "loss": 0.4730742573738098
+    },
+    {
+      "step": 5,
+      "loss": 0.41965678334236145
+    }
+  ],
+  "tasks": [
+    "D0",
+    "D1"
+  ]
+}

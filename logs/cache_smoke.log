@@ -1,0 +1,2 @@
+CACHE_PROGRESS 0 2 0.3
+CACHE_COMPLETE {'samples': 2, 'entries': 8, 'seconds': 0.6152596473693848, 'peak_vram_bytes': 2597324288, 'teacher_parameters_frozen': True, 'teacher_state_unchanged': True, 'manifest_sha256': '4854205d8e5fbd2a45f9a9eeaca3b62206aac533c1193aed055afcee58128561'}

@@ -1,0 +1,47 @@
+{
+  "rows": [
+    {
+      "variant": "B",
+      "train_set": "D0 + D1",
+      "updates": "3001",
+      "task": "D0",
+      "seen": "True",
+      "n": "50",
+      "successes": "28",
+      "success_rate": "0.56",
+      "mean_episode_length": "170.7",
+      "ci_low": "0.4230602802165686",
+      "ci_high": "0.6883780078874284"
+    },
+    {
+      "variant": "B",
+      "train_set": "D0 + D1",
+      "updates": "3001",
+      "task": "D1",
+      "seen": "True",
+      "n": "50",
+      "successes": "9",
+      "success_rate": "0.18",
+      "mean_episode_length": "198.9",
+      "ci_low": "0.09770192670234178",
+      "ci_high": "0.30796053674300783"
+    },
+    {
+      "variant": "B",
+      "train_set": "D0 + D1",
+      "updates": "3001",
+      "task": "D2",
+      "seen": "False",
+      "n": "50",
+      "successes": "0",
+      "success_rate": "0.0",
+      "mean_episode_length": "280.0",
+      "ci_low": "6.938893903907228e-18",
+      "ci_high": "0.07134759913335872"
+    }
+  ],
+  "source_commit": "c6b77f51e3e5bd8873b812d258744c43380fdfeb",
+  "hf_revision": "0e27d62f16cc276c33d5e3b2107cb1f24dce7792",
+  "source_path": "docs/multitask_sft/success_rates.csv",
+  "causal_control": false
+}

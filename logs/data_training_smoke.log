@@ -1,0 +1,12 @@
+INITIALIZE_PRETRAINED smoke
+PRETRAINED_READY
+PROJECTOR 1 0.994365930557251
+MICROBATCH_PASSED 8 {'align': 0.3842170536518097, 'flow': 0.24226373434066772, 'grad_norm': 3.419783353805542, 'loss': 0.31910714507102966}
+DATA_SMOKE_UPDATE {'step': 1, 'align': 0.3842170536518097, 'flow': 0.24226373434066772, 'grad_norm': 3.419783353805542, 'loss': 0.31910714507102966}
+DATA_SMOKE_UPDATE {'step': 2, 'align': 0.38367223739624023, 'flow': 0.23675507307052612, 'grad_norm': 3.3056821823120117, 'loss': 0.31348952651023865}
+/root/maniskill_myws/third_party/openpi/.venv/lib/python3.11/site-packages/orbax/checkpoint/_src/serialization/type_handlers.py:1251: UserWarning: Sharding info not provided when restoring. Populating sharding info from sharding file. Please note restoration time will be slightly increased due to reading from file. Note also that this option is unsafe when restoring on a different topology than the checkpoint was saved with.
+  warnings.warn(
+RESUME_VERIFIED
+DATA_SMOKE_UPDATE {'step': 3, 'align': 0.3833189606666565, 'flow': 0.17369996011257172, 'grad_norm': 2.510740280151367, 'loss': 0.2503637671470642}
+DATA_SMOKE_UPDATE {'step': 4, 'align': 0.38190799951553345, 'flow': 0.21415942907333374, 'grad_norm': 2.699889898300171, 'loss': 0.29054102301597595}
+DATA_SMOKE_UPDATE {'step': 5, 'align': 0.3835398554801941, 'flow': 0.2410183846950531, 'grad_norm': 2.970351219177246, 'loss': 0.31772637367248535}
