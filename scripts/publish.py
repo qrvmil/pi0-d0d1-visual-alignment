@@ -183,11 +183,22 @@ D2: libero_goal / put_the_bowl_on_the_stove — held-out OOD.
             fetched=Path(hf_hub_download(REPO,filename,revision=revision))
             if sha(fetched)!=sha(export/filename):raise ValueError('Remote downloaded artifact differs')
             checks.append(filename)
+    # Anonymous range reads also verify that large weight objects are publicly downloadable.
+    public_weight_checks=[]
+    for item in inventory:
+        if item['path'].startswith('checkpoints/') and item['bytes']>1024*1024:
+            url=f'https://huggingface.co/{REPO}/resolve/{revision}/'+item['path']
+            response=requests.get(url,headers={'Range':'bytes=0-4095'},stream=True,timeout=120)
+            response.raise_for_status()
+            block=response.raw.read(4096)
+            response.close()
+            if len(block)!=4096:raise ValueError('Large weight object is not downloadable')
+            public_weight_checks.append(item['path'])
     for filename in ('README.md','REPORT_RU.md','projector.npz'):
         fetched=Path(hf_hub_download(REPO,filename,revision=revision))
         if sha(fetched)!=sha(export/filename):raise ValueError('Remote download mismatch')
         checks.append(filename)
-    (ROOT/'configs/published_hf_inventory.json').write_text(json.dumps(dict(revision=revision,files=inventory,download_verified=checks),indent=2))
+    (ROOT/'configs/published_hf_inventory.json').write_text(json.dumps(dict(revision=revision,files=inventory,download_verified=checks,anonymous_weight_range_verified=public_weight_checks),indent=2))
     if subprocess.run(['gh','repo','view',REPO],cwd=ROOT,stdout=subprocess.DEVNULL,stderr=subprocess.DEVNULL).returncode:
         command(['gh','repo','create',REPO,'--public','--description','Reproducible pi0 visual alignment D0+D1 / held-out D2'])
     remotes=command(['git','remote']).splitlines()

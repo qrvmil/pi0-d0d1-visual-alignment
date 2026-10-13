@@ -1,0 +1,21 @@
+{
+  "status": "passed",
+  "middle_relative_rmse": 0.003956541884690523,
+  "tolerance": 0.005,
+  "masked_dummy_invariance_exact": true,
+  "gradient_decomposition_relative_residual": 3.9267735701287165e-05,
+  "gradient_tolerance": 0.02,
+  "initial_control_flow": 0.19704024493694305,
+  "initial_align_flow": 0.19704024493694305,
+  "align_group_gradient_norms": {
+    "vision": 0.19121456332935038,
+    "paligemma_lora": 0.029664773720020257,
+    "other": 0.0
+  },
+  "alignment_grad_after_layer9_max": 0.0,
+  "projector_sha256": "2b2c97bd55f552f77ae979167b7869abe3a2f08a73c0cd952c5abdd10b023d50",
+  "tasks": [
+    "D0",
+    "D1"
+  ]
+}

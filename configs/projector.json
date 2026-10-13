@@ -1,0 +1,28 @@
+{
+  "input_dim": 2048,
+  "hidden_dim": 1024,
+  "output_dim": 1024,
+  "layernorm_epsilon": 1e-05,
+  "activation": "jax.nn.gelu, approximate=True",
+  "seed": 101,
+  "calibration": {
+    "updates": 200,
+    "batch_size": 8,
+    "optimizer": "optax.adam",
+    "lr": 0.001,
+    "tasks": [
+      "D0",
+      "D1"
+    ],
+    "student_frozen": true
+  },
+  "frozen_during_sft": true,
+  "parameters": [
+    "b1",
+    "b2",
+    "bias",
+    "scale",
+    "w1",
+    "w2"
+  ]
+}
