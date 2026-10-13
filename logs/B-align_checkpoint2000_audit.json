@@ -1,0 +1,12 @@
+{
+  "checkpoint": 2000,
+  "arm": "B-align",
+  "metadata_binding_equal": true,
+  "normalization_equal": true,
+  "projector_file_unchanged": true,
+  "observed_updates": 2049,
+  "paired_sample_and_image_hashes_equal": true,
+  "finite_losses_and_gradient_norms": true,
+  "per_update_exact_balance": true,
+  "checkpoint_file_count": 62
+}
