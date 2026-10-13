@@ -1,0 +1,89 @@
+{
+  "status": "passed",
+  "fresh_pid": 114970,
+  "restored_step": 2,
+  "continued_step": 3,
+  "metrics": {
+    "align": 0.3833189606666565,
+    "flow": 0.17369996011257172,
+    "grad_norm": 2.51073956489563,
+    "loss": 0.2503637671470642
+  },
+  "reference_metrics": {
+    "align": 0.3833189606666565,
+    "flow": 0.17369996011257172,
+    "grad_norm": 2.510740280151367,
+    "loss": 0.2503637671470642
+  },
+  "samples": [
+    {
+      "sample_id": "D1/demo_0/0",
+      "augmentation": 3,
+      "image_sha256": [
+        "75c1317b938a4d737793221e6ed93db63eaee2253a115a7931ef94d54d424cb5",
+        "3da61e74886c8b3f08985d07ad00ed5e0bb5e9077e9780e48a1741fb2b0cc262"
+      ]
+    },
+    {
+      "sample_id": "D0/demo_0/0",
+      "augmentation": 2,
+      "image_sha256": [
+        "bc57d189ffed5a1a7b6d1e15879801913ac8241d041d55c102378022b98ed9d8",
+        "da30b8b377b82b0e409ad65df6de76cad7c468b9d16a2199e942d290457b1306"
+      ]
+    },
+    {
+      "sample_id": "D0/demo_0/0",
+      "augmentation": 3,
+      "image_sha256": [
+        "ead08f456d37e85346bb70a4d9cc1d39c7bf3bc50de8e9f5b7803f6b8949723d",
+        "1d8c41754f5f7b073e3ac44d27c4e75e0ad7aa97d29850851b412a558d581378"
+      ]
+    },
+    {
+      "sample_id": "D1/demo_0/0",
+      "augmentation": 2,
+      "image_sha256": [
+        "f302af64784d7e11f161b0e06947a0bd1862261223df66e236c41c80f5a5b16d",
+        "86526ce177bb39b7c395980aeee31e4a75de806d85e28954c953b52d97ed7a07"
+      ]
+    },
+    {
+      "sample_id": "D1/demo_0/0",
+      "augmentation": 0,
+      "image_sha256": [
+        "48caec6a7bd4895b452fafa7e2952e33b62ff0926cf76f7d0518d9a736023e07",
+        "76b34ced5d783ffdb50a41d2b74529408236437dff7e13d6cf9be1cf2f601881"
+      ]
+    },
+    {
+      "sample_id": "D0/demo_0/0",
+      "augmentation": 0,
+      "image_sha256": [
+        "8df7ba8da03a3149a5c24c90c7e9c9baef20726f8137f5fbb18da0bfaafa460c",
+        "d66cb0042d910faced7bef6b3278b0f448fe044f7f43d1310d27d284abfdd865"
+      ]
+    },
+    {
+      "sample_id": "D1/demo_0/0",
+      "augmentation": 0,
+      "image_sha256": [
+        "48caec6a7bd4895b452fafa7e2952e33b62ff0926cf76f7d0518d9a736023e07",
+        "76b34ced5d783ffdb50a41d2b74529408236437dff7e13d6cf9be1cf2f601881"
+      ]
+    },
+    {
+      "sample_id": "D0/demo_0/0",
+      "augmentation": 2,
+      "image_sha256": [
+        "bc57d189ffed5a1a7b6d1e15879801913ac8241d041d55c102378022b98ed9d8",
+        "da30b8b377b82b0e409ad65df6de76cad7c468b9d16a2199e942d290457b1306"
+      ]
+    }
+  ],
+  "tasks": [
+    "D0",
+    "D1"
+  ],
+  "projector_frozen": true
+}
