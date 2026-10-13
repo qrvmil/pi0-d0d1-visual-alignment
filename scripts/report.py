@@ -13,6 +13,13 @@ from alignment.stats import cp
 ROOT=Path(__file__).resolve().parents[1]
 
 
+def interval_errors(rate,lower,upper):
+    eps=1e-12
+    if not np.isfinite([rate,lower,upper]).all() or not 0<=rate<=1 or lower < -eps or upper > 1+eps or lower>upper or lower>rate+eps or upper<rate-eps:
+        raise ValueError('Success-rate interval invalid')
+    return max(0.,rate-lower)*100,max(0.,upper-rate)*100
+
+
 def cost_text():
     path=ROOT/'logs/cost_rate.json'
     if not path.exists():return 'Цена аренды недоступна: стоимость=walltimeGPU×фактическая ставка$/h.'
@@ -58,7 +65,8 @@ def main():
             else:
                 rows=json.loads((ROOT/'evaluation'/arm/task/'episodes.json').read_text());k=sum(bool(x['success']) for x in rows)
                 sr=k/len(rows);lo,hi=cp(k,len(rows),.025)
-            means.append(sr*100);lower.append((sr-lo)*100);upper.append((hi-sr)*100)
+            error_low,error_high=interval_errors(sr,lo,hi)
+            means.append(sr*100);lower.append(error_low);upper.append(error_high)
         ax.errorbar(xx+(j-1)*.15,means,yerr=[lower,upper],fmt='o',capsize=4,label=arm)
     ax.set_xticks(xx,['D0','D1','D2 OOD']);ax.set_ylabel('Success rate, % (95% CI)');ax.set_ylim(-4,104)
     ax.legend();fig.tight_layout();fig.savefig(figures/'success_rates.png',dpi=160);plt.close(fig)
