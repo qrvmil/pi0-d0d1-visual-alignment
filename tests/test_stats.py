@@ -32,3 +32,12 @@ def test_preregistered_lambda():
     assert choose_lambda([2]*20)==.1
     assert choose_lambda([.001]*20)==2
     with pytest.raises(ValueError): choose_lambda([0]*20)
+
+
+def test_d0_two_sided_interval_covers_two_prespecified_looks():
+    c=[0]*15+[1]*35;a=[1]*15+[1]*35
+    fixed=paired_effect(c,a)
+    sequential=d0_decision(c,a)
+    assert sequential['ci95'][0]<fixed['ci95'][0]
+    assert sequential['ci95'][1]>fixed['ci95'][1]
+    assert sequential['confidence_scope']=='simultaneous two-sided95% over two prespecified looks'

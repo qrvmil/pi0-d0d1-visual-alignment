@@ -90,7 +90,7 @@ def main():
     lines.extend(['', 'GPU: фактически A100-SXM4-80GB. Blackwell smoke не проверен на этой машине. Driver 580.159.03; JAX 0.5.3, CUDA runtime 12.8. '+cost_text(),
         '', 'L_align показана для B-align; в B-control этот loss не вычисляется.', '![Losses](figures/losses.png)', '![Success rates](figures/success_rates.png)', '',
         'Проблемы: CUDA 12.6 обновлена до 12.8; локальный HF dynamic loader и per-tensor loading RADIO несовместимы с выбранным Transformers, использована прямая загрузка полного pinned safetensors state_dict с strict=True. '
-        'Доверительные границы консервативные exact CP с marginal Bonferroni; D0 error budget распределён на 2 заранее заданных просмотра. '
+        'Доверительные границы — консервативные exact CP с marginal Bonferroni. D0: односторонний критерий и двухсторонний CI учитывают 2 заранее заданных просмотра; D1/D2: fixed50. '
         f'При n=50 интервал может быть широким. D0: фактически {d0["n"]} пар; расширение до 500 '+('выполнено по заранее записанному правилу.' if d0['n']==500 else 'не потребовалось по заранее записанному правилу.')+' Один seed обучения ограничивает перенос вывода на другие seeds.',
         '', 'Все числа: [paired results](evaluation/results.json), [CSV](evaluation/summary.csv), [logs](logs/), [pins](configs/pins.json), [дизайн](docs/DESIGN_RU.md). '
         'Исторический reference: [pinned table](https://github.com/qrvmil/maniskill_myws/blob/c6b77f51e3e5bd8873b812d258744c43380fdfeb/docs/multitask_sft/success_rates.csv). '

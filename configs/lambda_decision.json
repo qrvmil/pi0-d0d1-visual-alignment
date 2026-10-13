@@ -1,0 +1,11 @@
+{
+  "initial": 0.2,
+  "selected": 0.2,
+  "rule": "median last10 r>1: .2/r; r<.01: min(2,.02/r); otherwise .2; single adjustment",
+  "median_last10": 0.015410113846144137,
+  "tasks": [
+    "D0",
+    "D1"
+  ],
+  "pilot_updates": 20
+}

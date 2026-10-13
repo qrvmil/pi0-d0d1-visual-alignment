@@ -9,19 +9,20 @@ def cp(k,n,tail):
     return lower,upper
 
 
-def paired_effect(control,align):
+def paired_effect(control,align,tail=.0125):
     c=np.asarray(control);a=np.asarray(align)
     if c.ndim!=1 or a.shape!=c.shape or c.size==0 or not np.isin(c,[0,1]).all() or not np.isin(a,[0,1]).all():
         raise ValueError('Matched nonempty binary paired outcomes required')
     gains=int(((a==1)&(c==0)).sum());losses=int(((a==0)&(c==1)).sum());n=len(a)
-    gl,gu=cp(gains,n,.0125);ll,lu=cp(losses,n,.0125)
+    gl,gu=cp(gains,n,tail);ll,lu=cp(losses,n,tail)
     return dict(n=n,control_sr=float(c.mean()),align_sr=float(a.mean()),delta=(gains-losses)/n,
                 gains=gains,losses=losses,ci95=[gl-lu,gu-ll],
-                method='exact conservative marginal CP Bonferroni paired difference')
+                method='exact conservative marginal CP Bonferroni paired difference',confidence_scope='fixed-cohort two-sided95%')
 
 
 def d0_decision(control,align):
-    result=paired_effect(control,align)
+    result=paired_effect(control,align,tail=.00625)
+    result['confidence_scope']='simultaneous two-sided95% over two prespecified looks'
     # Each of two prespecified looks: total one-sided error .025; two marginals .0125.
     gl,gu=cp(result['gains'],result['n'],.0125)
     ll,lu=cp(result['losses'],result['n'],.0125)
