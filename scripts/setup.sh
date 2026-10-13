@@ -10,6 +10,7 @@ cd /root/maniskill_myws/third_party/openpi
 GIT_LFS_SKIP_SMUDGE=1 uv sync --python 3.11 --frozen
 uv pip install --python .venv/bin/python 'timm==1.0.15' 'robosuite==1.4.1' 'mujoco==3.2.7' 'bddl==1.0.1' 'gym==0.26.2' future easydict
 uv pip install --python .venv/bin/python --no-deps 'nvidia-cuda-runtime-cu12==12.8.90' 'nvidia-cuda-nvcc-cu12==12.8.93'
+uv pip install --python .venv/bin/python --no-deps -r /root/pi0-d0d1-visual-alignment/environment.lock.txt
 git -C third_party/libero checkout 8f1084e3132a39270c3a13ebe37270a43ece2a01
 apt-get update -qq
 apt-get install -y -qq libgl1 libegl1 libglvnd0 libgles2

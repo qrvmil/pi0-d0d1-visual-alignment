@@ -173,7 +173,7 @@ def train_arm(state,batches,projector,cfg,arm,size,lam):
         g,info=accumulated_grad(state,batch,projector,lam,grad,size);finite(info)
         state=update(state,g);jax.block_until_ready(state)
         row=dict(step=int(state.step),**{k:float(v) for k,v in info.items()},seconds=previous_time+time.time()-started,
-                 batch_sha256=hashlib_records(records),samples=records)
+                 batch_sha256=hashlib_records(records),samples=records,align_metric_computed=recipe['alignment'])
         with log.open('a') as f:f.write(json.dumps(row)+'\n')
         write(timing_path,dict(seconds=row['seconds']))
         if int(state.step)%10==0:print('TRAIN',arm,int(state.step),row['flow'],row['align'],round(row['seconds'],1),flush=True)
