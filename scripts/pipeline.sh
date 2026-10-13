@@ -5,7 +5,9 @@ source /root/pi0-d0d1-visual-alignment/scripts/env.sh
 import json
 assert json.load(open('logs/data_training_smoke.json'))['status']=='passed'
 PY
-"$ALIGN_PY" -u -m alignment.build_cache > logs/cache_build.log 2>&1
+if [[ ! -f private/cache/manifest.json ]]; then
+  "$ALIGN_PY" -u -m alignment.build_cache > logs/cache_build.log 2>&1
+fi
 if [[ ! -f private/projector.npz ]]; then
   "$ALIGN_PY" -u -m alignment.train calibrate > logs/projector_calibration.log 2>&1
 fi

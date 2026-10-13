@@ -32,8 +32,12 @@ class VramMonitor:
 
     def finish(self,path):
         self.stop_event.set();self.thread.join();self.sample()
-        result=dict(pid=self.pid,sample_interval_seconds=.25,peak_process_vram_bytes=max(r['process_vram_bytes'] for r in self.samples),
-                    wall_seconds=time.time()-self.started,total_vram_bytes=self.total,errors=self.errors,samples=self.samples)
+        previous=json.loads(path.read_text()) if path.exists() else None
+        offset=0 if previous is None else previous['wall_seconds']
+        samples=([dict(r,seconds=r['seconds']+offset) for r in self.samples])
+        if previous is not None:samples=previous['samples']+samples
+        result=dict(pid=self.pid,sample_interval_seconds=.25,peak_process_vram_bytes=max(r['process_vram_bytes'] for r in samples),
+                    wall_seconds=offset+time.time()-self.started,total_vram_bytes=self.total,errors=self.errors,samples=samples)
         path.write_text(json.dumps(result,indent=2))
         if self.errors:raise RuntimeError('VRAM measurement had sampling errors')
         return result

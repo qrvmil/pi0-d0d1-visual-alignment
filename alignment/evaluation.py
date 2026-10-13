@@ -127,6 +127,13 @@ def summarize():
         if task!='D0':stats['status']='ПРОЙДЕН' if stats['ci95'][0]>0 else 'НЕ ПРОЙДЕН' if stats['ci95'][1]<=0 else 'НЕОПРЕДЕЛЁН'
         results[task]=stats
     (ROOT/'evaluation/results.json').write_text(json.dumps(results,indent=2))
+    final_path=ROOT/'logs/evaluation_complete.json'
+    if not results['D0']['extend_to500']:
+        result_sha256=sha256(ROOT/'evaluation/results.json')
+        previous=json.loads(final_path.read_text()) if final_path.exists() else None
+        if previous is None or previous['results_sha256']!=result_sha256:
+            import time
+            final_path.write_text(json.dumps(dict(finished_unix=time.time(),results_sha256=result_sha256),indent=2))
     import csv
     with (ROOT/'evaluation/summary.csv').open('w') as f:
         writer=csv.DictWriter(f,fieldnames=['task','n','control_sr','align_sr','delta','lower95','upper95','status'])

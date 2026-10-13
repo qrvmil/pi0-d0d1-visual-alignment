@@ -1,4 +1,4 @@
-.............................                                            [100%]
+.................................                                        [100%]
 =============================== warnings summary ===============================
 tests/test_model.py::test_middle_prefix_matches_full_suffix_manual_blocks
 tests/test_model.py::test_middle_prefix_matches_full_suffix_manual_blocks
@@ -10,4 +10,4 @@ tests/test_model.py: 42 warnings
     if jnp.shape(val) != jnp.shape(abs_val):
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-29 passed, 44 warnings in 29.40s
+33 passed, 44 warnings in 29.41s

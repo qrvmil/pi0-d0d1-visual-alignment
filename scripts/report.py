@@ -1,5 +1,6 @@
 """Produce the Russian result report only from complete paired evaluation artifacts."""
 import json
+import datetime
 from pathlib import Path
 import sys
 import numpy as np
@@ -10,6 +11,20 @@ sys.path.insert(0,str(Path(__file__).resolve().parents[1]))
 from alignment.stats import cp
 
 ROOT=Path(__file__).resolve().parents[1]
+
+
+def cost_text():
+    path=ROOT/'logs/cost_rate.json'
+    if not path.exists():return 'Цена аренды недоступна: стоимость=walltimeGPU×фактическая ставка$/h.'
+    rate=json.loads(path.read_text())['hourly_usd']
+    smoke=json.loads((ROOT/'logs/compatibility_smoke.json').read_text())
+    started=datetime.datetime.strptime(smoke['hardware'].splitlines()[0].strip(),'%a %b %d %H:%M:%S %Y').replace(tzinfo=datetime.timezone.utc).timestamp()
+    finished=json.loads((ROOT/'logs/evaluation_complete.json').read_text())['finished_unix']
+    hours=(finished-started)/3600
+    value=hours*rate
+    record=dict(hourly_usd=rate,wall_hours=hours,approx_usd=value,scope='first compatibility smoke to final paired evaluation; instance walltime, excludes initial setup and publication')
+    (ROOT/'logs/run_cost.json').write_text(json.dumps(record,indent=2))
+    return f'Фактическая ставка аренды${rate:.3f}/h ([billing log](logs/cost_rate.json)); от первого compatibility smoke до финального evaluation{hours:.2f}h, примерно${value:.2f}. Это оплачиваемое walltime инстанса, включая ожидание/подготовку между стадиями; начальный setup и публикация исключены.'
 
 
 def main():
@@ -70,8 +85,7 @@ def main():
     for arm,v in metrics.items():
         memory=json.loads((ROOT/'logs'/f'{arm}_vram.json').read_text())
         lines.append(f'|{arm}|{memory["wall_seconds"]/3600:.2f}|{memory["peak_process_vram_bytes"]/2**30:.2f}|{v["memory_stats"]["peak_bytes_in_use"]/2**30:.2f}|')
-    lines.extend(['', 'GPU: фактически A100-SXM4-80GB. Blackwell smoke не проверен на этой машине. Driver580.159.03; JAX0.5.3, CUDA runtime12.8. '
-        'Цена аренды недоступна: стоимость=walltimeGPU×фактическая ставка$/h; не выдаём придуманную сумму.',
+    lines.extend(['', 'GPU: фактически A100-SXM4-80GB. Blackwell smoke не проверен на этой машине. Driver580.159.03; JAX0.5.3, CUDA runtime12.8. '+cost_text(),
         '', '![Losses](figures/losses.png)', '![Success rates](figures/success_rates.png)', '',
         'Проблемы: CUDA12.6 обновлена до12.8; локальный HF dynamic loader и per-tensor loading RADIO несовместимы с выбранным Transformers, использована прямая загрузка полного pinned safetensors state_dict с strict=True. '
         'Доверительные границы консервативные exact CP с marginal Bonferroni; D0 error budget распределён на2 заранее заданных просмотра. '
