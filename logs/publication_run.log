@@ -1,0 +1,131 @@
+...........................................                              [100%]
+=============================== warnings summary ===============================
+tests/test_model.py::test_middle_prefix_matches_full_suffix_manual_blocks
+tests/test_model.py::test_middle_prefix_matches_full_suffix_manual_blocks
+  /root/maniskill_myws/third_party/openpi/.venv/lib/python3.11/site-packages/jax/extend/linear_util.py:38: DeprecationWarning: linear_util.wrap_init is missing a DebugInfo object. This behavior is deprecated, use api_util.debug_info() to construct a proper DebugInfo object and propagate it to this function. See https://github.com/jax-ml/jax/issues/26480 for more details.
+    debug_info = debug_info or _missing_debug_info("linear_util.wrap_init")
+
+tests/test_model.py: 42 warnings
+  /root/maniskill_myws/third_party/openpi/.venv/lib/python3.11/site-packages/flax/core/scope.py:959: DeprecationWarning: shape requires ndarray or scalar arguments, got <class 'jax._src.api.ShapeDtypeStruct'> at position 0. In a future JAX release this will be an error.
+    if jnp.shape(val) != jnp.shape(abs_val):
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+43 passed, 44 warnings in 28.90s
+{
+  "D0": {
+    "n": 500,
+    "control_sr": 0.816,
+    "align_sr": 0.802,
+    "delta": -0.014,
+    "gains": 45,
+    "losses": 52,
+    "ci95": [
+      -0.08189314553376156,
+      0.054171274405831235
+    ],
+    "method": "exact conservative marginal CP Bonferroni paired difference",
+    "confidence_scope": "simultaneous two-sided95% over two prespecified looks",
+    "one_sided95_lower_simultaneous": -0.07514832795604041,
+    "noninferiority_margin": -0.02,
+    "status": "\u041d\u0415\u041e\u041f\u0420\u0415\u0414\u0415\u041b\u0401\u041d",
+    "extend_to500": false
+  },
+  "D1": {
+    "n": 50,
+    "control_sr": 0.38,
+    "align_sr": 0.6,
+    "delta": 0.22,
+    "gains": 13,
+    "losses": 2,
+    "ci95": [
+      -0.019079727007776937,
+      0.4200751657801693
+    ],
+    "method": "exact conservative marginal CP Bonferroni paired difference",
+    "confidence_scope": "fixed-cohort two-sided95%",
+    "status": "\u041d\u0415\u041e\u041f\u0420\u0415\u0414\u0415\u041b\u0401\u041d"
+  },
+  "D2": {
+    "n": 50,
+    "control_sr": 0.0,
+    "align_sr": 0.0,
+    "delta": 0.0,
+    "gains": 0,
+    "losses": 0,
+    "ci95": [
+      -0.0839098780079905,
+      0.0839098780079905
+    ],
+    "method": "exact conservative marginal CP Bonferroni paired difference",
+    "confidence_scope": "fixed-cohort two-sided95%",
+    "status": "\u041d\u0415\u041e\u041f\u0420\u0415\u0414\u0415\u041b\u0401\u041d"
+  }
+}
+Recovering from metadata files:   0%|          | 0/698 [00:00<?, ?it/s]Recovering from metadata files:  57%|█████▋    | 399/698 [00:00<00:00, 3984.23it/s]Recovering from metadata files: 100%|██████████| 698/698 [00:00<00:00, 3955.31it/s]
+
+
+
+---------- 2026-10-14 02:13:13 (0:00:00) ----------
+Files:   hashed 1/698 (7.5K/89.3G) | pre-uploaded: 0/0 (0.0/89.3G) (+698 unsure) | committed: 0/698 (0.0/89.3G) | ignored: 0
+Workers: hashing: 4 | get upload mode: 0 | pre-uploading: 0 | committing: 0 | waiting: 0
+---------------------------------------------------
+[K[F[K[F[K[F[K[F[K[F[K[F[K[F
+---------- 2026-10-14 02:14:13 (0:01:00) ----------
+Files:   hashed 383/698 (56.3G/89.3G) | pre-uploaded: 15/104 (9.6G/89.3G) (+318 unsure) | committed: 125/698 (3.4G/89.3G) | ignored: 0
+Workers: hashing: 1 | get upload mode: 0 | pre-uploading: 2 | committing: 1 | waiting: 0
+---------------------------------------------------
+                             [K[F[K[F[K[F[K[F[K[F[K[F[K[F
+---------- 2026-10-14 02:15:13 (0:02:00) ----------
+Files:   hashed 698/698 (89.3G/89.3G) | pre-uploaded: 37/176 (19.5G/89.3G) | committed: 503/698 (16.4G/89.3G) | ignored: 0
+Workers: hashing: 0 | get upload mode: 0 | pre-uploading: 4 | committing: 0 | waiting: 0
+---------------------------------------------------
+                             [K[F[K[F[K[F[K[F[K[F[K[F[K[F
+---------- 2026-10-14 02:16:13 (0:03:00) ----------
+Files:   hashed 698/698 (89.3G/89.3G) | pre-uploaded: 61/176 (31.7G/89.3G) | committed: 503/698 (16.4G/89.3G) | ignored: 0
+Workers: hashing: 0 | get upload mode: 0 | pre-uploading: 4 | committing: 0 | waiting: 0
+---------------------------------------------------
+                             [K[F[K[F[K[F[K[F[K[F[K[F[K[F
+---------- 2026-10-14 02:17:13 (0:04:00) ----------
+Files:   hashed 698/698 (89.3G/89.3G) | pre-uploaded: 95/176 (51.3G/89.3G) | committed: 503/698 (16.4G/89.3G) | ignored: 0
+Workers: hashing: 0 | get upload mode: 0 | pre-uploading: 4 | committing: 0 | waiting: 0
+---------------------------------------------------
+                             [K[F[K[F[K[F[K[F[K[F[K[F[K[F
+---------- 2026-10-14 02:18:13 (0:05:00) ----------
+Files:   hashed 698/698 (89.3G/89.3G) | pre-uploaded: 115/176 (61.0G/89.3G) | committed: 503/698 (16.4G/89.3G) | ignored: 0
+Workers: hashing: 0 | get upload mode: 0 | pre-uploading: 4 | committing: 0 | waiting: 0
+---------------------------------------------------
+                             [K[F[K[F[K[F[K[F[K[F[K[F[K[F
+---------- 2026-10-14 02:19:13 (0:06:00) ----------
+Files:   hashed 698/698 (89.3G/89.3G) | pre-uploaded: 140/176 (74.6G/89.3G) | committed: 653/698 (70.3G/89.3G) | ignored: 0
+Workers: hashing: 0 | get upload mode: 0 | pre-uploading: 4 | committing: 0 | waiting: 0
+---------------------------------------------------
+                             [K[F[K[F[K[F[K[F[K[F[K[F[K[F
+---------- 2026-10-14 02:20:13 (0:07:00) ----------
+Files:   hashed 698/698 (89.3G/89.3G) | pre-uploaded: 169/176 (88.8G/89.3G) | committed: 653/698 (70.3G/89.3G) | ignored: 0
+Workers: hashing: 0 | get upload mode: 0 | pre-uploading: 4 | committing: 0 | waiting: 0
+---------------------------------------------------
+                             To https://github.com/qrvmil/pi0-d0d1-visual-alignment.git
+ * [new branch]      main -> main
+To https://github.com/qrvmil/pi0-d0d1-visual-alignment.git
+   890df8b..7ca81c9  main -> main
+{
+  "github": "https://github.com/qrvmil/pi0-d0d1-visual-alignment",
+  "hf": "https://huggingface.co/qrvmil/pi0-d0d1-visual-alignment",
+  "commit": "890df8bed5ab701d4f950e9521393be131b0c375",
+  "release_tag": "v1.0.0-20261014",
+  "release_url": "https://github.com/qrvmil/pi0-d0d1-visual-alignment/releases/tag/v1.0.0-20261014",
+  "hf_revision": "7b37667b91dbc526c94b849b07d7ad370e8e0030",
+  "checkpoints": [
+    "B-control/0",
+    "B-control/500",
+    "B-control/1000",
+    "B-control/2000",
+    "B-control/3001",
+    "B-align/0",
+    "B-align/500",
+    "B-align/1000",
+    "B-align/2000",
+    "B-align/3001"
+  ],
+  "publication_log_commit": "7ca81c9919ca6678715c2f4d24db4017b3b872ff"
+}

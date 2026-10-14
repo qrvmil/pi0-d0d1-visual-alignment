@@ -1,0 +1,37 @@
+{
+  "status": "passed",
+  "anonymous_session": true,
+  "trust_env": false,
+  "hf_homepage_status": 200,
+  "hf_public_repo": true,
+  "hf_revision": "7b37667b91dbc526c94b849b07d7ad370e8e0030",
+  "model_card_crosslink_and_D2_warning_verified": true,
+  "github_release": "https://github.com/qrvmil/pi0-d0d1-visual-alignment/releases/tag/v1.0.0-20261014",
+  "release_assets": [
+    {
+      "name": "losses.png",
+      "url": "https://github.com/qrvmil/pi0-d0d1-visual-alignment/releases/download/v1.0.0-20261014/losses.png",
+      "bytes": 118841,
+      "sha256": "f8c4ab7e930e05044e319bc9cca1f58192175dcad094a39c467ef025f02ee086"
+    },
+    {
+      "name": "REPORT_RU.md",
+      "url": "https://github.com/qrvmil/pi0-d0d1-visual-alignment/releases/download/v1.0.0-20261014/REPORT_RU.md",
+      "bytes": 7483,
+      "sha256": "b2fa43201adbf258e968df862524fd19bb4549637cb52654c1ae89f1a9a29a3a"
+    },
+    {
+      "name": "success_rates.png",
+      "url": "https://github.com/qrvmil/pi0-d0d1-visual-alignment/releases/download/v1.0.0-20261014/success_rates.png",
+      "bytes": 32843,
+      "sha256": "da270dd159314428eac94f9bd6519082d8706486211266542891689c118eb097"
+    },
+    {
+      "name": "summary.csv",
+      "url": "https://github.com/qrvmil/pi0-d0d1-visual-alignment/releases/download/v1.0.0-20261014/summary.csv",
+      "bytes": 315,
+      "sha256": "98ee56d7d5cd36131cb4db36d4461679a51860bd2cb2b66fc1c7de10e82222a1"
+    }
+  ],
+  "github_main_sha_verified": "7ca81c9919ca6678715c2f4d24db4017b3b872ff"
+}

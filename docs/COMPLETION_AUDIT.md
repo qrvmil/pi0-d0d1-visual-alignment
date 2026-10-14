@@ -1,6 +1,6 @@
 # Проверка полного запроса
 
-Локальные обучение, оценка и отчёт проверены. Публикация и remote-download proof ещё требуют исполнения; весь запрос до них не считается завершённым. Первоначальный запрос сохранён в REQUEST_RU.txt. Ниже указан scope каждого доказательства.
+Обучение, оценка, отчёт и публичная публикация проверены. Полный запрос выполнен на фактически доступном A100; Blackwell на этой машине отсутствует. Доказательства скачивания и ограничения измерений приведены ниже. Первоначальный запрос сохранён в REQUEST_RU.txt. Ниже указан scope каждого доказательства.
 
 | Требование | Статус | Авторитетное доказательство |
 |---|---|---|
@@ -19,17 +19,17 @@
 | Finite loss/gradients/effectivebatch/OOM handling | Проверено | обе3001 строки finite; micro8/accum1/effective8, OOM0; configs/memory_recipe.json; accumulation regression tests |
 | Resume после остановки | Проверено | exact smoke params+optimizer restore step2; fresh GPU process restored2/continued3 with losses exact and gradnorm within tolerance, fresh_process_resume.json; main500 train_state separately restored onCPU |
 | PeakVRAM и длительность | Проверено в указанном scope | complete training JAX allocations20.39/25.30GiB и pool32GiB; process wall3483.77/4736.22s. Original NVML host/container PID zeros invalid, null; align attached NVML32.48GiB — partial window, не full-process peak |
-| Все scheduled checkpoints | Проверено локально | B-control и B-align0/500/1000/2000/3001; params/train_state/assets/metadata и norm/binding/projector digests повторно проверены |
+| Все scheduled checkpoints | Проверено локально и на HF | B-control и B-align0/500/1000/2000/3001; params/train_state/assets/metadata и norm/binding/projector digests повторно проверены |
 | Paired resets и flow-noise | Проверено все600пар | logs/final_evaluation_audit.json: exact seed cohorts, reset hashes и common noise prefixes equal; first50 snapshots unchanged |
 | First50 всех задач и prespecified D0→500 без cherry-picking | Проверено | evaluation/first50 archive; D0 original lower−.208213983 triggeredextension; final D0 both500 unique seeds10000..10499, D1/D2 each50 seeds10000..10049;1200 new episodes |
 | Δ/CI/strict D0 lower>−.02/D2 primary/no unsupported success | Проверено | evaluation/results.json и summary.csv: D0 Δ−.014, lower−.075148328, CI[−.081893146,.054171274]; D2 both0/50, CI±.083909878; все статусы НЕОПРЕДЕЛЁН |
 | REPORT_RU.md/таблица/reference/status/directanswer/config/n/time/VRAM/cost/plots/commands | Проверено локально | generated REPORT_RU.md, losses.png/success_rates.png просмотрены; цена1.1854347$/h ×6.03h≈7.15$, scope firstsmoke→finaleval, excludes initialsetup/publication; all claims source-linked |
 | Fresh-clone reproduction | Проверено изолированными fixtures/CLI | prepare_reproduction.py архивирует опубликованные runtime outputs в ignored private/published_results, сохраняет pins/lock/immutablebaseinventory/reference и отказывается менять existing private run; tests/test_prepare_reproduction.py; README commands require prep before setup/smoke |
-| Все текущие tests | Проверено, final publication gate повторит | original actualGPU fullsuite39passed/44warnings; новые fresh-run/CLI/report tests6passed; новый fullsuite после всех фиксов43passed/44warnings наCPU, logs/final_tests.log |
+| Все текущие tests | Проверено, publication gate повторно прошёл | original actualGPU fullsuite39passed/44warnings; новые fresh-run/CLI/report tests6passed; новый fullsuite после всех фиксов43passed/44warnings наCPU, logs/final_tests.log |
 | Все12 небольших videos | Проверено | полный ffmpeg decode, frame counts, SHA, row metadata и exact seeds10000/10001 perarm/task, final_evaluation_audit.json |
-| GitHub code/config/tests/manifests/lock/report/results/videos/logs | Ожидает публикации | local artifacts готовы; scripts/publish.py staged allowlist/path/secret/symlink checks; repo qrvmil/pi0-d0d1-visual-alignment |
-| HF все10checkpoints/projector/norm/metadata/config/Russian card | Ожидает публикации | publisher explicit checkpoint inventory/fresh export/hashes, запрещает data/cache/upstreamweights/secrets; remote proofs ещё отсутствуют |
-| Cross-links/article/final release/download accessibility | Ожидает публикации | README crosslinks готовы; publisher проверит public HF inventory/LFS hashes/full small downloads/ranges forweights, GitHub report bytes/release assets |
-| Финальные URLs/commit/tag/checkpoint list | Ожидает публикации | logs/publication.json будет создан только после remote checks; goal complete только после него |
+| GitHub code/config/tests/manifests/lock/report/results/videos/logs | Проверено | [Публичный GitHub](https://github.com/qrvmil/pi0-d0d1-visual-alignment); audit_staged allowlist/secret/symlink checks пройдены; logs/publication.json и publication_run.log |
+| HF все10checkpoints/projector/norm/metadata/config/Russian card | Проверено | [Публичный HF](https://huggingface.co/qrvmil/pi0-d0d1-visual-alignment), revision 7b37667b91dbc526c94b849b07d7ad370e8e0030; configs/published_hf_inventory.json: 698 файлов, remote sizes/LFS SHA совпадают с локальными, 23 полных малых скачивания и 162 анонимных range-downloads больших весов |
+| Cross-links/article/final release/download accessibility | Проверено | [Release v1.0.0-20261014](https://github.com/qrvmil/pi0-d0d1-visual-alignment/releases/tag/v1.0.0-20261014); README/model card crosslinks и D2 warning проверены; logs/public_access_verification.json: anonymous HF HTTP200 и четыре release assets полностью скачаны с совпадением SHA |
+| Финальные URLs/commit/tag/checkpoint list | Проверено | logs/publication.json: scientific release commit 890df8bed5ab701d4f950e9521393be131b0c375, tag v1.0.0-20261014, оба arm steps 0/500/1000/2000/3001; URLs и inventory опубликованы |
 
-Независимая read-only review подтвердила числа, all3001 input hashes и paired cohorts, указала fresh-clone reuse bug. Он исправлен архивированием published runtime metadata перед новым запуском; существующие actual checkpoints не затрагивались. Remote publication ещё не выполнена.
+Независимая read-only review подтвердила числа, all3001 input hashes и paired cohorts, указала fresh-clone reuse bug. Он исправлен архивированием published runtime metadata перед новым запуском; существующие actual checkpoints не затрагивались. Remote publication выполнена и независимо проверена. HF scientific snapshot фиксирован указанной revision; последующие журнальные документы не меняют веса, outcomes или отчёт.
