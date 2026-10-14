@@ -1,0 +1,20 @@
+{
+  "github": "https://github.com/qrvmil/pi0-d0d1-visual-alignment",
+  "hf": "https://huggingface.co/qrvmil/pi0-d0d1-visual-alignment",
+  "commit": "890df8bed5ab701d4f950e9521393be131b0c375",
+  "release_tag": "v1.0.0-20261014",
+  "release_url": "https://github.com/qrvmil/pi0-d0d1-visual-alignment/releases/tag/v1.0.0-20261014",
+  "hf_revision": "7b37667b91dbc526c94b849b07d7ad370e8e0030",
+  "checkpoints": [
+    "B-control/0",
+    "B-control/500",
+    "B-control/1000",
+    "B-control/2000",
+    "B-control/3001",
+    "B-align/0",
+    "B-align/500",
+    "B-align/1000",
+    "B-align/2000",
+    "B-align/3001"
+  ]
+}
