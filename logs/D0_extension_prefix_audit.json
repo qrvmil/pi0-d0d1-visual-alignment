@@ -1,0 +1,11 @@
+{
+  "status": "verified_partial_extension",
+  "arm": "B-control",
+  "task": "D0",
+  "durable_episodes": 167,
+  "first50_unchanged": true,
+  "exact_seed_prefix": true,
+  "noise_hashes_present": true,
+  "live_worker": 145371,
+  "final_cohort_required": 500
+}
