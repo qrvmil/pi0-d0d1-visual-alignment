@@ -1,0 +1,50 @@
+{
+  "D0": {
+    "n": 500,
+    "control_sr": 0.816,
+    "align_sr": 0.802,
+    "delta": -0.014,
+    "gains": 45,
+    "losses": 52,
+    "ci95": [
+      -0.08189314553376156,
+      0.054171274405831235
+    ],
+    "method": "exact conservative marginal CP Bonferroni paired difference",
+    "confidence_scope": "simultaneous two-sided95% over two prespecified looks",
+    "one_sided95_lower_simultaneous": -0.07514832795604041,
+    "noninferiority_margin": -0.02,
+    "status": "\u041d\u0415\u041e\u041f\u0420\u0415\u0414\u0415\u041b\u0401\u041d",
+    "extend_to500": false
+  },
+  "D1": {
+    "n": 50,
+    "control_sr": 0.38,
+    "align_sr": 0.6,
+    "delta": 0.22,
+    "gains": 13,
+    "losses": 2,
+    "ci95": [
+      -0.019079727007776937,
+      0.4200751657801693
+    ],
+    "method": "exact conservative marginal CP Bonferroni paired difference",
+    "confidence_scope": "fixed-cohort two-sided95%",
+    "status": "\u041d\u0415\u041e\u041f\u0420\u0415\u0414\u0415\u041b\u0401\u041d"
+  },
+  "D2": {
+    "n": 50,
+    "control_sr": 0.0,
+    "align_sr": 0.0,
+    "delta": 0.0,
+    "gains": 0,
+    "losses": 0,
+    "ci95": [
+      -0.0839098780079905,
+      0.0839098780079905
+    ],
+    "method": "exact conservative marginal CP Bonferroni paired difference",
+    "confidence_scope": "fixed-cohort two-sided95%",
+    "status": "\u041d\u0415\u041e\u041f\u0420\u0415\u0414\u0415\u041b\u0401\u041d"
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "checkpoint": "/root/pi0-d0d1-visual-alignment/private/checkpoints/B-control/3001",
+  "variant": "external",
+  "normalization_path": "/root/pi0-d0d1-visual-alignment/configs/norm_stats.json",
+  "seen_tasks": [
+    "D0",
+    "D1"
+  ],
+  "normalization_sha256": "d4d3cde5dfcb52a107893c04a65938f1b3c8004253659617d5540879b8d8dddb",
+  "action_horizon": 50,
+  "replan_steps": 5,
+  "action_contract": "7D normalized LIBERO OSC, inverse norm once, clip [-1,1]",
+  "checkpoint_params": {
+    "_METADATA": "b42febdd8778ac04f4ec232b88b2e02e74a1ba5e778405c2cc76cb8ef7c9a3e6",
+    "_sharding": "d3d8fe25753b9e0891db8889eab68ab8d8956246cce910b95a946434cfacdbc7",
+    "array_metadatas/process_0": "405763dcd4ee76fff6cd352170126c5916c7c1ecf2a5d2e339b4719eea8d246d",
+    "d/b51b65268ab1eb8f567c974a2df16249": "477236f16f730596addf85cca22bbce2473c0c4816358678127fa0ddd164588a",
+    "manifest.ocdbt": "c7b16df1abc326b1d5335199758f59749183adebc28955aaedd91eb9ab4fa29f",
+    "ocdbt.process_0/d/01954275bf50e78f4e6f740fbb2e6c12": "2b7c4f9f70bdfbf39ed214762a689a51d61cfa73009fc99536a9f06eb84e1f49",
+    "ocdbt.process_0/d/0e11968b0eae9ce609657eeab077face": "25da6bec91e14e6eb11c2de748e148cbae2e49ffd0af02f6fb1a026acde7536f",
+    "ocdbt.process_0/d/21b0f01e6dd2af45d4c1ddadcba4184b": "fff2f8b328c86ab34912c01d5758210df1805bcd73e3709be401d1989b9b18c3",
+    "ocdbt.process_0/d/23a669df440a1e1c69c9615c41664a2d": "b64da8af4ba4a967e9013f693c98748017bcc6e5b3a71979c5ca4b155be8e05a",
+    "ocdbt.process_0/d/439ef0545ed3fce7a9bcd7a7f102d8c6": "1d209cd34fb00ec524b8bcd8d005972e6379f6879c2de7523ce02294f1c50558",
+    "ocdbt.process_0/d/4ea19c61433a7c03ee102f7e41bc4186": "06be5a6e6b6a769dd4eaa0b2c2fe997f148d94c61567df5a21cb798692c47db3",
+    "ocdbt.process_0/d/93bb3b78d8567c6e41c60ccaa0fbbee9": "44221e7b9920fa8ac7c63e96fa6e39014cbf4d6f75c2f87269ac2532d5972c98",
+    "ocdbt.process_0/d/a1d8bb1c3fb33e6f16bce9049f362e5e": "e63a378efdfb1bebd9c96a5ea87f8667c978ddf04ca49f8b47ede2e0e149bb9d",
+    "ocdbt.process_0/d/af93d5895329ba138ddc3df3ff669703": "a0b4abc08c7a59dbd3900ef815530e8f0a676d78dbe3834ac22b317da7496500",
+    "ocdbt.process_0/d/b81aa4519aeaf90f395124077bcdff5e": "371763f998473814bec4412ad3598221ee2ec9f8198686d345535f8aa75d9a19",
+    "ocdbt.process_0/d/c6187c033c5c4494b9ece91ce1e78f27": "633c9e8448171ffb5c9ef1b1ed3657e92a39daf24de2869158c76f36e8a0b70b",
+    "ocdbt.process_0/d/c926c18ffd386b3f9ebac06953565c69": "5a710a9accdad6b7deb8943a9bce3109d2adba1c3d5d109da367076053a81f17",
+    "ocdbt.process_0/d/f6a189c27b515c5567ebd46d591e778f": "cbdb8590cd271058e80136d8cf03c5ed910245754d9bfacd33fc528e736caa24",
+    "ocdbt.process_0/d/fe8ba1b6d7fff3fb0069f740ff7c8fc8": "28fd15eb587836d64f4233aac79a3a3a70a0695da1f215c9da40323885a58a41",
+    "ocdbt.process_0/manifest.ocdbt": "941870edef9cda1f1f7c7656b0cafd1cca86f91a158f76bf27909d46883e64b4"
+  },
+  "config": "TrainConfig(name='pi0_libero_seen_lora32', project_name='openpi', exp_name='EXP-001', model=Pi0Config(action_dim=32, action_horizon=50, max_token_len=48, dtype='bfloat16', paligemma_variant='gemma_2b_lora', action_expert_variant='gemma_300m_lora', pi05=False, discrete_state_input=False), weight_loader=CheckpointWeightLoader(params_path='/root/pi0-d0d1-visual-alignment/private/eval_runtime/base/pi0_base/params'), pytorch_weight_path=None, pytorch_training_precision='bfloat16', lr_schedule=CosineDecaySchedule(warmup_steps=1000, peak_lr=2.5e-05, decay_steps=30000, decay_lr=2.5e-06), optimizer=AdamW(b1=0.9, b2=0.95, eps=1e-08, weight_decay=1e-10, clip_gradient_norm=1.0), ema_decay=None, freeze_filter=All(PathRegex(pattern=re.compile('.*llm.*'), sep='/'), Not(PathRegex(pattern=re.compile('.*lora.*'), sep='/'))), data=LeRobotLiberoDataConfig(repo_id='local/multitask_A', assets=AssetsConfig(assets_dir=None, asset_id=None), base_config=DataConfig(repo_id=None, asset_id=None, norm_stats=None, repack_transforms=Group(inputs=(), outputs=()), data_transforms=Group(inputs=(), outputs=()), model_transforms=Group(inputs=(), outputs=()), use_quantile_norm=False, action_sequence_keys=('actions',), prompt_from_task=True, rlds_data_dir=None, action_space=None, datasets=()), extra_delta_transform=False), assets_base_dir='/root/pi0-d0d1-visual-alignment/private/eval_runtime/A/assets', checkpoint_base_dir='/root/pi0-d0d1-visual-alignment/private/eval_runtime/A/checkpoints', seed=0, batch_size=8, num_workers=0, num_train_steps=3001, log_interval=10, save_interval=1, keep_period=1, overwrite=False, resume=False, wandb_enabled=False, policy_metadata=None, fsdp_devices=1)",
+  "arm": "B-control",
+  "task": "D0",
+  "noise_stream": "numpy.default_rng(reset_seed), fixed shape50x32, consumed on replanning"
+}

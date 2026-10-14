@@ -1,0 +1,32 @@
+{
+  "variant": "external",
+  "train_tasks": null,
+  "task": "D0",
+  "seen": true,
+  "filename": "external_D0_seed10001_failure.mp4",
+  "checkpoint": "/root/pi0-d0d1-visual-alignment/private/checkpoints/B-control/3001",
+  "seen_tasks": [
+    "D0",
+    "D1"
+  ],
+  "seed": 10001,
+  "success": false,
+  "length": 220,
+  "reset_hash": "8ab7244f72e0b16dee6c7486cddaa1e1b96d8143d36c4db6a5bf7c72cccba005",
+  "trajectory_hash": "33235d41a27fac2966e0f13a6e2934714911ffe1b51457e6f6be73bc92740a5a",
+  "image_hash": "acd7b567603e0a7e9c27008464328720891c46a07498f64131f3846aa75e0f15",
+  "expected_frames": 221,
+  "includes_terminal_frame": true,
+  "fps": 20,
+  "camera_views": [
+    "agentview",
+    "wrist"
+  ],
+  "origin": "evaluation",
+  "frames": 221,
+  "width": 256,
+  "height": 128,
+  "bytes": 310603,
+  "sha256": "25e65d409dca765a4bacf473ae87d0d95c2447308a86d74d1244af8fc712edb9",
+  "full_decode_passed": true
+}

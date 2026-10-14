@@ -1,0 +1,92 @@
+[robosuite WARNING] No private macro file found! (macros.py:53)
+WARNING:robosuite_logs:No private macro file found!
+[robosuite WARNING] It is recommended to use a private macro file (macros.py:54)
+WARNING:robosuite_logs:It is recommended to use a private macro file
+[robosuite WARNING] To setup, run: python /root/maniskill_myws/third_party/openpi/.venv/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py (macros.py:55)
+WARNING:robosuite_logs:To setup, run: python /root/maniskill_myws/third_party/openpi/.venv/lib/python3.11/site-packages/robosuite/scripts/setup_macros.py
+Gym has been unmaintained since 2022 and does not support NumPy 2.0 amongst other critical functionality.
+Please upgrade to Gymnasium, the maintained drop-in replacement of Gym, or contact the authors of your software and request that they upgrade.
+Users of this version of Gym should be able to simply replace 'import gym' with 'import gymnasium as gym' in the vast majority of cases.
+See the migration guide at https://gymnasium.farama.org/introduction/migration_guide/ for additional information.
+[info] using task orders [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+[Warning]: datasets path /root/maniskill_myws/third_party/openpi/third_party/libero/libero/datasets does not exist!
+/root/maniskill_myws/third_party/openpi/.venv/lib/python3.11/site-packages/flax/core/scope.py:959: DeprecationWarning: shape requires ndarray or scalar arguments, got <class 'jax._src.api.ShapeDtypeStruct'> at position 0. In a future JAX release this will be an error.
+  if jnp.shape(val) != jnp.shape(abs_val):
+/root/maniskill_myws/third_party/openpi/.venv/lib/python3.11/site-packages/jax/extend/linear_util.py:38: DeprecationWarning: linear_util.wrap_init is missing a DebugInfo object. This behavior is deprecated, use api_util.debug_info() to construct a proper DebugInfo object and propagate it to this function. See https://github.com/jax-ml/jax/issues/26480 for more details.
+  debug_info = debug_info or _missing_debug_info("linear_util.wrap_init")
+/root/maniskill_myws/third_party/openpi/.venv/lib/python3.11/site-packages/flax/core/scope.py:959: DeprecationWarning: shape requires ndarray or scalar arguments, got <class 'jax._src.api.ShapeDtypeStruct'> at position 0. In a future JAX release this will be an error.
+  if jnp.shape(val) != jnp.shape(abs_val):
+/root/maniskill_myws/third_party/openpi/.venv/lib/python3.11/site-packages/jax/extend/linear_util.py:38: DeprecationWarning: linear_util.wrap_init is missing a DebugInfo object. This behavior is deprecated, use api_util.debug_info() to construct a proper DebugInfo object and propagate it to this function. See https://github.com/jax-ml/jax/issues/26480 for more details.
+  debug_info = debug_info or _missing_debug_info("linear_util.wrap_init")
+/root/maniskill_myws/third_party/openpi/.venv/lib/python3.11/site-packages/flax/core/scope.py:959: DeprecationWarning: shape requires ndarray or scalar arguments, got <class 'jax._src.api.ShapeDtypeStruct'> at position 0. In a future JAX release this will be an error.
+  if jnp.shape(val) != jnp.shape(abs_val):
+/root/maniskill_myws/third_party/openpi/.venv/lib/python3.11/site-packages/flax/core/scope.py:959: DeprecationWarning: shape requires ndarray or scalar arguments, got <class 'jax._src.api.ShapeDtypeStruct'> at position 0. In a future JAX release this will be an error.
+  if jnp.shape(val) != jnp.shape(abs_val):
+/root/maniskill_myws/third_party/openpi/.venv/lib/python3.11/site-packages/flax/core/scope.py:959: DeprecationWarning: shape requires ndarray or scalar arguments, got <class 'jax._src.api.ShapeDtypeStruct'> at position 0. In a future JAX release this will be an error.
+  if jnp.shape(val) != jnp.shape(abs_val):
+/root/maniskill_myws/third_party/openpi/.venv/lib/python3.11/site-packages/flax/core/scope.py:959: DeprecationWarning: shape requires ndarray or scalar arguments, got <class 'jax._src.api.ShapeDtypeStruct'> at position 0. In a future JAX release this will be an error.
+  if jnp.shape(val) != jnp.shape(abs_val):
+/root/maniskill_myws/third_party/openpi/.venv/lib/python3.11/site-packages/jax/extend/linear_util.py:38: DeprecationWarning: linear_util.wrap_init is missing a DebugInfo object. This behavior is deprecated, use api_util.debug_info() to construct a proper DebugInfo object and propagate it to this function. See https://github.com/jax-ml/jax/issues/26480 for more details.
+  debug_info = debug_info or _missing_debug_info("linear_util.wrap_init")
+/root/maniskill_myws/third_party/openpi/.venv/lib/python3.11/site-packages/flax/core/scope.py:959: DeprecationWarning: shape requires ndarray or scalar arguments, got <class 'jax._src.api.ShapeDtypeStruct'> at position 0. In a future JAX release this will be an error.
+  if jnp.shape(val) != jnp.shape(abs_val):
+/root/maniskill_myws/third_party/openpi/.venv/lib/python3.11/site-packages/flax/core/scope.py:959: DeprecationWarning: shape requires ndarray or scalar arguments, got <class 'jax._src.api.ShapeDtypeStruct'> at position 0. In a future JAX release this will be an error.
+  if jnp.shape(val) != jnp.shape(abs_val):
+/root/maniskill_myws/third_party/openpi/.venv/lib/python3.11/site-packages/flax/core/scope.py:959: DeprecationWarning: shape requires ndarray or scalar arguments, got <class 'jax._src.api.ShapeDtypeStruct'> at position 0. In a future JAX release this will be an error.
+  if jnp.shape(val) != jnp.shape(abs_val):
+/root/maniskill_myws/third_party/openpi/.venv/lib/python3.11/site-packages/flax/core/scope.py:959: DeprecationWarning: shape requires ndarray or scalar arguments, got <class 'jax._src.api.ShapeDtypeStruct'> at position 0. In a future JAX release this will be an error.
+  if jnp.shape(val) != jnp.shape(abs_val):
+/root/.local/share/uv/python/cpython-3.11.17-linux-x86_64-gnu/lib/python3.11/subprocess.py:1885: RuntimeWarning: os.fork() was called. os.fork() is incompatible with multithreaded code, and JAX is multithreaded, so this will likely lead to a deadlock.
+  self.pid = _fork_exec(
+PAIRED_EVAL B-align D0 10000 True 87
+/root/.local/share/uv/python/cpython-3.11.17-linux-x86_64-gnu/lib/python3.11/subprocess.py:1885: RuntimeWarning: os.fork() was called. os.fork() is incompatible with multithreaded code, and JAX is multithreaded, so this will likely lead to a deadlock.
+  self.pid = _fork_exec(
+PAIRED_EVAL B-align D0 10001 True 92
+PAIRED_EVAL B-align D0 10002 False 220
+PAIRED_EVAL B-align D0 10003 True 95
+PAIRED_EVAL B-align D0 10004 True 96
+PAIRED_EVAL B-align D0 10005 False 220
+PAIRED_EVAL B-align D0 10006 True 96
+PAIRED_EVAL B-align D0 10007 True 85
+PAIRED_EVAL B-align D0 10008 True 89
+PAIRED_EVAL B-align D0 10009 True 97
+PAIRED_EVAL B-align D0 10010 True 201
+PAIRED_EVAL B-align D0 10011 False 220
+PAIRED_EVAL B-align D0 10012 False 220
+PAIRED_EVAL B-align D0 10013 True 96
+PAIRED_EVAL B-align D0 10014 True 118
+PAIRED_EVAL B-align D0 10015 True 94
+PAIRED_EVAL B-align D0 10016 True 86
+PAIRED_EVAL B-align D0 10017 True 116
+PAIRED_EVAL B-align D0 10018 True 102
+PAIRED_EVAL B-align D0 10019 True 89
+PAIRED_EVAL B-align D0 10020 True 90
+PAIRED_EVAL B-align D0 10021 True 87
+PAIRED_EVAL B-align D0 10022 True 80
+PAIRED_EVAL B-align D0 10023 True 84
+PAIRED_EVAL B-align D0 10024 True 108
+PAIRED_EVAL B-align D0 10025 True 220
+PAIRED_EVAL B-align D0 10026 True 102
+PAIRED_EVAL B-align D0 10027 True 85
+PAIRED_EVAL B-align D0 10028 True 93
+PAIRED_EVAL B-align D0 10029 True 84
+PAIRED_EVAL B-align D0 10030 True 180
+PAIRED_EVAL B-align D0 10031 True 88
+PAIRED_EVAL B-align D0 10032 False 220
+PAIRED_EVAL B-align D0 10033 True 102
+PAIRED_EVAL B-align D0 10034 False 220
+PAIRED_EVAL B-align D0 10035 True 104
+PAIRED_EVAL B-align D0 10036 True 87
+PAIRED_EVAL B-align D0 10037 False 220
+PAIRED_EVAL B-align D0 10038 True 92
+PAIRED_EVAL B-align D0 10039 True 91
+PAIRED_EVAL B-align D0 10040 True 95
+PAIRED_EVAL B-align D0 10041 False 220
+PAIRED_EVAL B-align D0 10042 True 86
+PAIRED_EVAL B-align D0 10043 True 95
+PAIRED_EVAL B-align D0 10044 True 95
+PAIRED_EVAL B-align D0 10045 True 106
+PAIRED_EVAL B-align D0 10046 True 95
+PAIRED_EVAL B-align D0 10047 True 159
+PAIRED_EVAL B-align D0 10048 True 90
+PAIRED_EVAL B-align D0 10049 True 105

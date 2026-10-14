@@ -1,0 +1,32 @@
+{
+  "variant": "external",
+  "train_tasks": null,
+  "task": "D1",
+  "seen": true,
+  "filename": "external_D1_seed10000_success.mp4",
+  "checkpoint": "/root/pi0-d0d1-visual-alignment/private/checkpoints/B-align/3001",
+  "seen_tasks": [
+    "D0",
+    "D1"
+  ],
+  "seed": 10000,
+  "success": true,
+  "length": 96,
+  "reset_hash": "af9fd92940d607a5957d9977d7dd88b72074a4e15d832e5515b3ecdd684cae8d",
+  "trajectory_hash": "fae067963fdf1dc57a9d13e1d33f884ec6e7156bca7a93e347297cf7083506ce",
+  "image_hash": "f5bf5a1a8bc054feda755e9dd2aae3277d004814ec575986ce24862421e4d677",
+  "expected_frames": 97,
+  "includes_terminal_frame": true,
+  "fps": 20,
+  "camera_views": [
+    "agentview",
+    "wrist"
+  ],
+  "origin": "evaluation",
+  "frames": 97,
+  "width": 256,
+  "height": 128,
+  "bytes": 103657,
+  "sha256": "40f19a7d53ff8bc8f2b5cf1dc14521cf3522256c10e396243d21551291be762b",
+  "full_decode_passed": true
+}

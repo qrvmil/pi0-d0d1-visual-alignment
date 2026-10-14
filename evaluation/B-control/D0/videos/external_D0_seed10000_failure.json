@@ -1,0 +1,34 @@
+{
+  "variant": "external",
+  "train_tasks": null,
+  "task": "D0",
+  "seen": true,
+  "filename": "external_D0_seed10000_failure.mp4",
+  "checkpoint": "/root/pi0-d0d1-visual-alignment/private/checkpoints/B-control/3001",
+  "seen_tasks": [
+    "D0",
+    "D1"
+  ],
+  "seed": 10000,
+  "success": false,
+  "length": 220,
+  "reset_hash": "6d9b1d2f0281228535bd76b42517b04d827482c6a128883793db7a6bb3bb3f4a",
+  "trajectory_hash": "ea997b1d8093b1b6ff04346f289dd333d4f78f8a3472b26e3202600d042f91d2",
+  "image_hash": "f77df32dfc901d4ea8cd8470ebce81624f066ebca45427eee630ebfef22a8755",
+  "expected_frames": 221,
+  "includes_terminal_frame": true,
+  "fps": 20,
+  "camera_views": [
+    "agentview",
+    "wrist"
+  ],
+  "origin": "evaluation",
+  "frames": 221,
+  "width": 256,
+  "height": 128,
+  "bytes": 263592,
+  "sha256": "8f03045e5cb6b4e6f710efdd1ebd314398a4a78fa252a4fff2ecfba42720f716",
+  "full_decode_passed": true,
+  "arm": "B-control",
+  "recovery_note": "Video created by original rollout; validation/metadata completed after installing missing ffmpeg; no episode replay or outcome change."
+}
