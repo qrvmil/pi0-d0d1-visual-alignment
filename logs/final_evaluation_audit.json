@@ -1,0 +1,111 @@
+{
+  "status": "verified",
+  "episodes": 1200,
+  "D0_pairs": 500,
+  "D1_pairs": 50,
+  "D2_pairs": 50,
+  "exact_unique_preregistered_cohorts": true,
+  "first50_unchanged_all_arms_tasks": true,
+  "paired_reset_hashes_equal": true,
+  "paired_common_noise_prefix_hashes_equal": true,
+  "recomputed_stats_match": true,
+  "videos": [
+    {
+      "arm": "B-control",
+      "task": "D0",
+      "seed": 10000,
+      "frames": 221,
+      "full_decode_passed": true,
+      "sha256": "8f03045e5cb6b4e6f710efdd1ebd314398a4a78fa252a4fff2ecfba42720f716"
+    },
+    {
+      "arm": "B-control",
+      "task": "D0",
+      "seed": 10001,
+      "frames": 221,
+      "full_decode_passed": true,
+      "sha256": "25e65d409dca765a4bacf473ae87d0d95c2447308a86d74d1244af8fc712edb9"
+    },
+    {
+      "arm": "B-align",
+      "task": "D0",
+      "seed": 10000,
+      "frames": 88,
+      "full_decode_passed": true,
+      "sha256": "e31e4fb30ac06f2ab03477eacbbf6b97867188f03579fb23b80e1b539cb33ea2"
+    },
+    {
+      "arm": "B-align",
+      "task": "D0",
+      "seed": 10001,
+      "frames": 93,
+      "full_decode_passed": true,
+      "sha256": "82c9ba8289530e4e72b1da8117d67746a1df17cbbee4242b44529fdd0f36efd3"
+    },
+    {
+      "arm": "B-control",
+      "task": "D1",
+      "seed": 10000,
+      "frames": 102,
+      "full_decode_passed": true,
+      "sha256": "5624a7162e16952199b0a7d42656499541153489f6e27b1179a12558ca70a95f"
+    },
+    {
+      "arm": "B-control",
+      "task": "D1",
+      "seed": 10001,
+      "frames": 221,
+      "full_decode_passed": true,
+      "sha256": "7db4fada735c64ad07f280a4b97fc4c8af79a692989e01e7a41ceb3586b7366b"
+    },
+    {
+      "arm": "B-align",
+      "task": "D1",
+      "seed": 10000,
+      "frames": 97,
+      "full_decode_passed": true,
+      "sha256": "40f19a7d53ff8bc8f2b5cf1dc14521cf3522256c10e396243d21551291be762b"
+    },
+    {
+      "arm": "B-align",
+      "task": "D1",
+      "seed": 10001,
+      "frames": 140,
+      "full_decode_passed": true,
+      "sha256": "b772764245299133c50a1d1d6eab012963da663407cb052248180c7526c8cbd3"
+    },
+    {
+      "arm": "B-control",
+      "task": "D2",
+      "seed": 10000,
+      "frames": 281,
+      "full_decode_passed": true,
+      "sha256": "7bd8d68ff9d6ed80cea4f34626757ae9c5cb43680b99998b3ab1052d85f2055f"
+    },
+    {
+      "arm": "B-control",
+      "task": "D2",
+      "seed": 10001,
+      "frames": 281,
+      "full_decode_passed": true,
+      "sha256": "012270f7aef5a9fbeeb3162d8ff71edb2dcd5a6cc3e7c5da6e9ac9b9160997f4"
+    },
+    {
+      "arm": "B-align",
+      "task": "D2",
+      "seed": 10000,
+      "frames": 281,
+      "full_decode_passed": true,
+      "sha256": "9f8b1450601cbc575ed7fd72a0f7d4f12b734b069294b73cc72dada54cb0fb6f"
+    },
+    {
+      "arm": "B-align",
+      "task": "D2",
+      "seed": 10001,
+      "frames": 281,
+      "full_decode_passed": true,
+      "sha256": "0e6e2a49a43848dc074302d602463f35589b32d60869d31dd48c22ccd32b55b5"
+    }
+  ],
+  "results_sha256": "d83860e1498a474ea4cef549b694daff62c98e3fbe2e124a8cfd20ce11c9b1e9"
+}

@@ -1,0 +1,20 @@
+{
+  "status": "passed",
+  "tests": 43,
+  "warnings": 44,
+  "unit_test_platform": "cpu",
+  "command": "JAX_PLATFORMS=cpu $ALIGN_PY -m pytest -q",
+  "gpu_evidence": [
+    "compatibility_smoke.json",
+    "data_training_smoke.json",
+    "model_integration.json",
+    "fresh_process_resume.json"
+  ],
+  "source_heads": {
+    "source": "c6b77f51e3e5bd8873b812d258744c43380fdfeb",
+    "openpi": "981483dca0fd9acba698fea00aa6e52d56a66c58",
+    "libero": "8f1084e3132a39270c3a13ebe37270a43ece2a01"
+  },
+  "all10_scheduled_checkpoint_bindings_and_norms_reverified": true,
+  "rollout_evidence": "final_evaluation_audit.json"
+}

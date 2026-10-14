@@ -38,12 +38,14 @@ def main():
     r=json.loads((ROOT/'evaluation/results.json').read_text())
     original=json.loads((ROOT/'evaluation/B-original_historical.json').read_text())
     original={x['task']:x for x in original['rows']}
+    memory_recipe=json.loads((ROOT/'configs/memory_recipe.json').read_text())
     metrics={}
     for arm in ('B-control','B-align'):
         metrics[arm]=json.loads((ROOT/'logs'/f'{arm}_complete.json').read_text())
         if metrics[arm]['steps']!=3001:raise ValueError('Training incomplete')
     figures=ROOT/'figures';figures.mkdir(exist_ok=True)
     fig,axes=plt.subplots(1,2,figsize=(10,3.5))
+    colors={'B-original':'#777777','B-control':'#1f77b4','B-align':'#ff7f0e'}
     for arm in metrics:
         rows=[json.loads(s) for s in (ROOT/'logs'/f'{arm}.jsonl').read_text().splitlines()]
         steps=np.array([x['step'] for x in rows]);flow=np.array([x['flow'] for x in rows]);align=np.array([x['align'] for x in rows])
@@ -51,9 +53,9 @@ def main():
         series=[(axes[0],flow,'L_flow')]
         if arm=='B-align':series.append((axes[1],align,'L_align'))
         for ax,y,label in series:
-            ax.plot(steps,y,alpha=.2,lw=.4)
+            ax.plot(steps,y,alpha=.2,lw=.4,color=colors[arm])
             width=min(50,len(y));avg=np.convolve(y,np.ones(width)/width,mode='valid')
-            ax.plot(steps[width-1:],avg,label=arm)
+            ax.plot(steps[width-1:],avg,label=arm,color=colors[arm])
             ax.set_xlabel('Optimizer update');ax.set_ylabel(label);ax.legend()
     fig.tight_layout();fig.savefig(figures/'losses.png',dpi=160);plt.close(fig)
     fig,ax=plt.subplots(figsize=(7,4));xx=np.arange(3)
@@ -67,7 +69,7 @@ def main():
                 sr=k/len(rows);lo,hi=cp(k,len(rows),.0125 if task=='D0' else .025)
             error_low,error_high=interval_errors(sr,lo,hi)
             means.append(sr*100);lower.append(error_low);upper.append(error_high)
-        ax.errorbar(xx+(j-1)*.15,means,yerr=[lower,upper],fmt='o',capsize=4,label=arm)
+        ax.errorbar(xx+(j-1)*.15,means,yerr=[lower,upper],fmt='o',capsize=4,label=arm,color=colors[arm])
     ax.set_xticks(xx,['D0','D1','D2 OOD']);ax.set_ylabel('Success rate, % (95% CI)');ax.set_ylim(-4,104)
     ax.legend();fig.tight_layout();fig.savefig(figures/'success_rates.png',dpi=160);plt.close(fig)
     def pct(x):return f'{100*x:.1f}'
@@ -86,12 +88,13 @@ def main():
         'B-original — исторический reference из pinned source, а не causal control. D0 критерий: нижняя граница строго>−2 п.п.; D2: нижняя paired 95% CI строго>0. D1 показана как exploratory superiority.',
         '', 'Обучены новые B-control и B-align: LoRA32 в PaliGemma/action expert плюс параметры, которые upstream low-memory recipe оставляет trainable (включая SigLIP). Отличие arms — frozen-projector cosine regularizer. '
         'Перенесены frozen C-RADIO, middle backbone patch alignment и предварительно обученный LN+MLP с последующим замораживанием. Адаптации: flow matching вместо CE, девятый блок PaliGemma, 2 камеры, bilinear 14×14 → 16×16. '
-        'Middle state вычисляется prefix-only первыми 9 блоками; actual π0 integration измерила relative RMSE 0,00396 при заранее заданном BF16 допуске 0,005 ([лог](logs/model_integration.json)); все слои не материализуются.',
-        '',f'Конфигурация: seed 0, 3001 optimizer updates, effective batch 8; {json.loads((ROOT/"configs/memory_recipe.json").read_text())}; '
+        'Middle state вычисляется prefix-only первыми 9 блоками; Интеграционная проверка π0 измерила relative RMSE 0,00396 при заранее заданном BF16 допуске 0,005 ([лог](logs/model_integration.json)); все слои не материализуются.',
+        '',f'Конфигурация: seed обучения 0, 3001 обновление, effective batch 8; microbatch {memory_recipe["microbatch"]}, accumulation {memory_recipe["accumulation"]}, OOM событий {len(memory_recipe["oom_events"])}. AdamW: β₁=0,9, β₂=0,95, clip=1; cosine schedule, warmup 1000, peak LR 2,5·10⁻⁵, decay 30000, min LR 2,5·10⁻⁶; [полный конфиг](configs/B-align.json). '
         f'λ={json.loads((ROOT/"configs/lambda_decision.json").read_text())["selected"]}. Projector: 200 updates; pilot: 20 updates; K=4. '
         f'Демонстрации: 50 D0 + 50 D1; {json.loads((ROOT/"configs/normalization_provenance.json").read_text())["frames"]} кадров. '
         'Нормализация all-seen, chunk-weighted, next-action shift; отличается от исторического pipeline обработкой последнего неполного batch, это зафиксированная адаптация.',
-        '', '| Run | Wall time (process), h | NVML peak, GiB | JAX allocations peak, GiB | JAX pool peak, GiB |', '|---|---:|---:|---:|---:|'])
+        '', f'Evaluation: {2*sum(v["n"] for v in r.values())} новых эпизодов. D0 — {d0["n"]} пар, seeds 10000–{10000+d0["n"]-1}; D1/D2 — по 50 пар, seeds 10000–10049. Reset states и общий префикс flow-noise совпадают внутри каждой пары.',
+        '', '| Run | Длительность процесса, ч | NVML peak, GiB | JAX allocations peak, GiB | JAX pool peak, GiB |', '|---|---:|---:|---:|---:|'])
     for arm,v in metrics.items():
         memory=json.loads((ROOT/'logs'/f'{arm}_vram.json').read_text())
         nvml='недоступен (PID namespace)'
@@ -114,7 +117,7 @@ def main():
         'Исторический reference: [pinned table](https://github.com/qrvmil/maniskill_myws/blob/c6b77f51e3e5bd8873b812d258744c43380fdfeb/docs/multitask_sft/success_rates.csv). '
         '[Статья](https://arxiv.org/html/2510.25616).',
         '', 'Воспроизведение (полные команды и environment lock в README):', '```bash',
-        'bash scripts/setup.sh', 'source scripts/env.sh', '$ALIGN_PY -m pytest -q', '$ALIGN_PY -m alignment.smoke',
+        'python scripts/prepare_reproduction.py', 'bash scripts/setup.sh', 'source scripts/env.sh', '$ALIGN_PY -m pytest -q', '$ALIGN_PY -m alignment.smoke',
         '$ALIGN_PY scripts/fetch.py', '$ALIGN_PY -m alignment.build_cache --samples 2',
         '$ALIGN_PY -m alignment.train smoke', '$ALIGN_PY -u scripts/run_pipeline.py', '```'])
     (ROOT/'REPORT_RU.md').write_text('\n'.join(lines)+'\n')
