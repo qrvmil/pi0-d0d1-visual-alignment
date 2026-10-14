@@ -3,7 +3,7 @@ import pytest
 
 
 def published_clone(root):
-    files={'configs/pins.json':'pins','configs/upstream-uv.lock':'lock',
+    files={'configs/pins.json':'pins','configs/upstream-uv.lock':'lock','configs/base_inventory.json':'immutable base generations',
            'configs/lambda_decision.json':'published lambda','configs/B-align.json':'published binding',
            'configs/norm_stats.json':'published norm','configs/memory_recipe.json':'published memory',
            'configs/initialization_sha256.json':'published initialization','configs/cache_manifest.json':'published cache manifest',
@@ -22,8 +22,9 @@ def test_fresh_clone_archives_evidence_and_removes_all_runtime_reuse(tmp_path):
     result=prepare(tmp_path)
     assert (tmp_path/'configs/pins.json').read_text()=='pins'
     assert (tmp_path/'configs/upstream-uv.lock').read_text()=='lock'
+    assert (tmp_path/'configs/base_inventory.json').read_text()=='immutable base generations'
     assert (tmp_path/'evaluation/B-original_historical.json').read_text()=='historical reference'
-    retained={'configs/pins.json','configs/upstream-uv.lock','evaluation/B-original_historical.json'}
+    retained={'configs/pins.json','configs/upstream-uv.lock','configs/base_inventory.json','evaluation/B-original_historical.json'}
     for name in set(before)-retained:
         assert not (tmp_path/name).exists()
         assert (Path(result['archive'])/name).read_text()==before[name]

@@ -22,7 +22,7 @@ $ALIGN_PY -u -m alignment.train smoke > logs/data_training_smoke.log 2>&1
 $ALIGN_PY -u scripts/run_pipeline.py
 ```
 
-Для **нового запуска из fresh clone** команда `prepare_reproduction.py` переносит опубликованные результаты и runtime-конфиги в `private/published_results/`, сохраняя pins/lock и B-original reference. Она отказывается работать при наличии локальных private-данных/checkpoints: существующий эксперимент не очищается. Выполняйте её до setup/download/smoke; для resume существующего запуска эта команда не нужна. Smoke-команды выполняются один раз в новом рабочем каталоге; повторный smoke поверх существующего checkpoint не является resume.
+Для **нового запуска из fresh clone** команда `prepare_reproduction.py` переносит опубликованные результаты и runtime-конфиги в `private/published_results/`, сохраняя pins/lock, immutable GCS generations в `base_inventory.json` и B-original reference. Она отказывается работать при наличии локальных private-данных/checkpoints: существующий эксперимент не очищается. Выполняйте её до setup/download/smoke; для resume существующего запуска эта команда не нужна. Smoke-команды выполняются один раз в новом рабочем каталоге; повторный smoke поверх существующего checkpoint не является resume.
 
 В `private/` находятся datasets, исходные π0/C-RADIO weights, teacher cache, frozen projector и созданные checkpoints; эта директория исключена из git. Код публикации загружает в HF **только созданные** B-control/B-align checkpoints и projector, normalization assets/configs/model card. Dataset, teacher cache и исходные upstream checkpoints не публикуются.
 

@@ -10,4 +10,4 @@ tests/test_model.py: 42 warnings
     if jnp.shape(val) != jnp.shape(abs_val):
 
 -- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
-43 passed, 44 warnings in 15.45s
+43 passed, 44 warnings in 14.93s

@@ -11,7 +11,7 @@ def prepare(root:Path):
     private=root/'private'
     if private.is_symlink() or (private.exists() and any(private.iterdir())):
         raise RuntimeError('Refusing to prepare an existing local experiment; use a fresh clone before setup/download/smoke. Existing private data and checkpoints are preserved.')
-    keep={'configs':{'pins.json','upstream-uv.lock'},'evaluation':{'B-original_historical.json'}}
+    keep={'configs':{'pins.json','upstream-uv.lock','base_inventory.json'},'evaluation':{'B-original_historical.json'}}
     planned=[]
     for folder in ('logs','configs','evaluation','figures'):
         directory=root/folder
@@ -28,7 +28,7 @@ def prepare(root:Path):
     for folder in ('logs','configs','evaluation','figures'):(root/folder).mkdir(exist_ok=True)
     result=dict(status='fresh_run_prepared',archive=str(archive),
                 archived=[str(p.relative_to(root)) for p in planned],
-                note='Published evidence archived; no prior completion, lambda, normalization, initialization, cache manifests or evaluation rows reused. Static pins/lock and historical B-original reference retained.')
+                note='Published evidence archived; no prior completion, lambda, normalization, initialization, cache manifests or evaluation rows reused. Static pins/lock, immutable GCS base object generations and historical B-original reference retained.')
     (root/'logs/reproduction_preparation.json').write_text(json.dumps(result,indent=2)+'\n')
     return result
 
