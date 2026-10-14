@@ -70,3 +70,5 @@
 - Verified wait on liveD0 extensionworker145371/pipeline81052 progressed58→164+ episodes; originalfirst50records exactlyunchanged and uniqueorderedseedprefix verified(logs/D0_extension_prefix_audit.json). No interimcriterion testing/early stopping, no modelchange; both500 cohorts remainrequired. Reportprecision/chartcoverage refinements committedc7b4e7b, finalREPORT notgenerated yet.
 
 - B-control D0 extension completed all500 uniqueorderedseeds10000..10499; first50records exactlyunchanged, allrowarm/task/seenmembership/noisehashes checked. logs/D0_control500_cohort_audit.json. Pipeline81052 automaticallyadvanced toB-align D0 extension worker162138; no interim500criterion tested beforefullpairedcohort, no selection/model/λchanges.
+
+- B-align D0 extension reached250+ episodes withliveworker162138/pipeline81052. Exactordereduniqueseedprefix, unchangedfirst50botharms, pairedreset/commonnoisehashes verified againstcontrol500 forentireobservedprefix(logs/D0_partial_paired_extension_audit.json). Full500 criterion notyetretested; finalREPORT/plots/publish awaitcompletecohort.

@@ -1,0 +1,12 @@
+{
+  "status": "verified_partial_paired_extension",
+  "task": "D0",
+  "control_episodes": 500,
+  "align_episodes": 254,
+  "exact_unique_seed_prefix": true,
+  "first50_unchanged_both_arms": true,
+  "paired_reset_hashes_equal": true,
+  "paired_common_flow_noise_hashes_equal": true,
+  "live_worker": 162138,
+  "criterion_scope": "not recalculated until all500 pairs complete"
+}
